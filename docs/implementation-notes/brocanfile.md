@@ -12,13 +12,12 @@ Defines the base environment in which the build is going to be executed.
 base: java8
 ~~~~
 
-### `users`
+### `owner`
 
-An optional array of users who are allowed to modify the build using the brocan API or online interface. This includes, for example the right to add, remove or modify environment variables.
+The username of the person who is the owner of the repository. Only needed for the first build of a specific repository when entries are created. Initially, only the owner has the right to change several properties of the build (such as the environment variables), but they have the permission to grant rights to other users too.
 
 ~~~~YAML
-users:
-    - battila7
+owner: battila7
 ~~~~
 
 ### `steps`
@@ -58,8 +57,7 @@ The following example is assembled from the previous smaller snippets:
 
 ~~~~YAML
 base: java8
-users:
-  - battila7
+owner: battila7
 steps:
   - name: build
     execute:
@@ -78,8 +76,7 @@ Note, that the previous brocanfile is equivalent to the following:
 
 ~~~~YAML
 base: java8
-users:
-  - battila7
+owner: battila7
 steps:
   - name: build
     execute:
