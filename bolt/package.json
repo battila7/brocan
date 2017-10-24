@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "The build runner of Brocan CI.",
   "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/battila7/brocan",
+    "type": "git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Attila Bagossy",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^3.10.0",
+    "yargs": "^10.0.3"
+  }
 }
