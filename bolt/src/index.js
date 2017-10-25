@@ -13,10 +13,10 @@ const brocanFilePath = (function acquireBrocanFilePath() {
 
 parser.parseFile(brocanFilePath)
     .then(function validateBrocanFile(brocanFile) {
-        const results = validator.validate(brocanFile);
+        const errors = validator.validate(brocanFile);
 
-        if (results.length == 0) {
-            throw results;
+        if (errors.length != 0) {
+            throw errors;
         } else {
             return brocanFile;
         }

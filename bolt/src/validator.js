@@ -10,13 +10,7 @@ const schema = Joi.object().keys({
             name: Joi.string().regex(alphanumUnderscoreDash).required(),
             commands: Joi.array().items(Joi.string()).required()
         })
-    ).unique('name').required(),
-    flow: Joi.array().items(
-        Joi.object().items({
-            step: Joi.string().regex(alphanumUnderscoreDash).required(),
-            when: Joi.object().pattern(/\-?[0-9]+/, Joi.string().regex(alphanumUnderscoreDash))
-        })
-    )
+    ).unique('name').required()
 });
 
 /*
@@ -25,9 +19,13 @@ const schema = Joi.object().keys({
  */
 const validator = {
     validate(contents) {
-        const result = Joi.validate(contents, schema, { abortEarly: false });
+        const validationResult = Joi.validate(contents, schema, { abortEarly: false });
 
-        
+        if (validationResult.error) {
+            return validationResult.error.details.map(detail => detail.message);
+        } else {
+            return [];
+        }
     },
     validateFlow(contents) {
         const result = {
