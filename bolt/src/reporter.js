@@ -4,14 +4,6 @@ const logger = require('./logger');
 
 const parentHost = 'localhost:8080';
 
-const mappings = {
-    buildReport: `${parentHost}/report/build`,
-    stepReport: `${parentHost}/report/step`,
-    commandReport: `${parentHost}/report/command`,
-};
-
-Object.freeze(mappings);
-
 const status = {
     pending: 'pending',
     in_progess: 'in_progress',
@@ -26,8 +18,18 @@ const Reporter = {
         got
     },
 
-    Reporter(executor, brocanFile) {
-        this.executor = executor;
+    Reporter(buildId) {
+        this.mappings = this.assembleMappings(buildId);
+    },
+    assembleMappings(buildId) {
+        return {
+            buildReport: `${parentHost}/${buildId}/report/build`,
+            stepReport: `${parentHost}/${buildId}/report/step`,
+            commandReport: `${parentHost}/${buildId}/report/command`,
+        }
+    },
+    initWithBuildEmitter(emitter, brocanFile) {
+        this.emitter = emitter;
 
         this.setupListeners();
 
@@ -45,47 +47,47 @@ const Reporter = {
     },
     setupListeners() {
         const listenerMapping = [
-            [ 'build.start', 'onBuildStart' ],
-            [ 'build.failure', 'onBuildFailure' ],
-            [ 'build.success', 'onBuildSuccess' ],
-            [ 'step.start', 'onStepStart' ],
-            [ 'step.failure', 'onStepFailure' ],
-            [ 'step.success', 'onStepSuccess' ],
-            [ 'command.start', 'onCommandStart' ],
-            [ 'command.failure', 'onCommandFailure' ],
-            [ 'command.success', 'onCommandSuccess' ]
+            [ 'build.start', 'reportBuildStart' ],
+            [ 'build.failure', 'reportBuildFailure' ],
+            [ 'build.success', 'reportBuildSuccess' ],
+            [ 'step.start', 'reportStepStart' ],
+            [ 'step.failure', 'reportStepFailure' ],
+            [ 'step.success', 'reportStepSuccess' ],
+            [ 'command.start', 'reportCommandStart' ],
+            [ 'command.failure', 'reportCommandFailure' ],
+            [ 'command.success', 'reportCommandSuccess' ]
         ];
 
         listenerMapping.forEach(mapping => {
-            this.executor.on(mapping[0], this[mapping[1]].bind(this));
+            this.emitter.on(mapping[0], this[mapping[1]].bind(this));
         });
     },
-    onBuildStart() {
-        this.postTo(mappings.buildReport, status.in_progess, { steps: this.steps });
+    reportBuildStart() {
+        this.postTo(this.mappings.buildReport, status.in_progess, { steps: this.steps });
     },
-    onBuildFailure() {
-        this.postTo(mappings.buildReport, status.failed );
+    reportBuildFailure(err) {
+        this.postTo(this.mappings.buildReport, status.failed, { reason: err } );
     },
-    onBuildSuccess() {
-        this.postTo(mappings.buildReport, status.successful );
+    reportBuildSuccess() {
+        this.postTo(this.mappings.buildReport, status.successful );
     },
-    onStepStart(stepName) {
-        this.postTo(mappings.stepReport, status.in_progess, { name: stepName });
+    reportStepStart(stepName) {
+        this.postTo(this.mappings.stepReport, status.in_progess, { name: stepName });
     },
-    onStepFailure(stepName) {
-        this.postTo(mappings.stepReport, status.failed, { name: stepName });
+    reportStepFailure(stepName) {
+        this.postTo(this.mappings.stepReport, status.failed, { name: stepName });
     },
-    onStepSuccess(stepName) {
-        this.postTo(mappings.stepReport, status.successful, { name: stepName });
+    reportStepSuccess(stepName) {
+        this.postTo(this.mappings.stepReport, status.successful, { name: stepName });
     },
-    onCommandStart(command, stepName) {
-        this.postTo(mappings.commandReport, status.in_progess, { command, step: stepName });
+    reportCommandStart(command, stepName) {
+        this.postTo(this.mappings.commandReport, status.in_progess, { command, step: stepName });
     },
-    onCommandFailure(err, command, stepName) {
-        this.postTo(mappings.commandReport, status.failed, { command, reason: err.toString(), step: stepName });
+    reportCommandFailure(err, command, stepName) {
+        this.postTo(this.mappings.commandReport, status.failed, { command, reason: err.toString(), step: stepName });
     },
-    onCommandSuccess(command, stepName) {
-        this.postTo(mappings.commandReport, status.successful, { command, step: stepName });
+    reportCommandSuccess(command, stepName) {
+        this.postTo(this.mappings.commandReport, status.successful, { command, step: stepName });
     },
     postTo(uri, status, body = {}) {
         logger.debug('Reporting to %s', uri);

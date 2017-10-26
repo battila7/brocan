@@ -13,11 +13,20 @@ const brocanFilePath = (function acquireBrocanFilePath() {
     return argv._[0] || defaultPath;
 })();
 
+const buildId = (function acquireBuildId() {
+    return 'change-me';
+})();
+
+const reporter = Object.create(Reporter);
+reporter.Reporter(buildId);
+
 parser.parseFile(brocanFilePath)
     .then(function validateBrocanFile(brocanFile) {
         const errors = validator.validate(brocanFile);
 
         if (errors.length != 0) {
+            logger.error('Malformed brocanfile, exiting.');
+
             throw errors;
         } else {
             return brocanFile;
@@ -27,10 +36,13 @@ parser.parseFile(brocanFilePath)
         const executor = Object.create(Executor);
         executor.Executor(brocanFile);
 
-        const reporter = Object.create(Reporter);
-        reporter.Reporter(executor, brocanFile);
+        reporter.initWithBuildEmitter(executor, brocanFile);
 
         return executor.execute();
     })
-    .catch(e => console.log(e));
+    .catch(err => {
+        logger.error('Failure: %s', err);
+
+        reporter.reportBuildFailure(err);
+    });
 
