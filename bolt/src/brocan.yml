@@ -5,3 +5,7 @@ steps:
     commands:
       - echo hi
       - echo there
+  - name: build
+    commands:
+      - echo hi
+      - echo there

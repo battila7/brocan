@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 const argv = require('yargs').argv;
 
+const logger = require('./logger');
 const parser = require('./parser');
 const validator = require('./validator');
+const Reporter = require('./reporter');
 const Executor = require('./executor');
 
 const brocanFilePath = (function acquireBrocanFilePath() {
@@ -24,6 +26,9 @@ parser.parseFile(brocanFilePath)
     .then(function executeBrocanFile(brocanFile) {
         const executor = Object.create(Executor);
         executor.Executor(brocanFile);
+
+        const reporter = Object.create(Reporter);
+        reporter.Reporter(executor, brocanFile);
 
         return executor.execute();
     })
