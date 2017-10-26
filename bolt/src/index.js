@@ -3,7 +3,7 @@ const argv = require('yargs').argv;
 
 const parser = require('./parser');
 const validator = require('./validator');
-const executor = require('./executor');
+const Executor = require('./executor');
 
 const brocanFilePath = (function acquireBrocanFilePath() {
     const defaultPath = 'brocan.yml';
@@ -22,7 +22,10 @@ parser.parseFile(brocanFilePath)
         }
     })
     .then(function executeBrocanFile(brocanFile) {
-        executor.execute(brocanFile);
+        const executor = Object.create(Executor);
+        executor.Executor(brocanFile);
+
+        return executor.execute();
     })
     .catch(e => console.log(e));
 

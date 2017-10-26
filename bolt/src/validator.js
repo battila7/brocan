@@ -26,15 +26,6 @@ const validator = {
         } else {
             return [];
         }
-    },
-    validateFlow(contents) {
-        const result = {
-            
-        };
-
-        if (!contents.flow) {
-
-        }
     }
 };
 
