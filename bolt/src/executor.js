@@ -1,6 +1,5 @@
 const { spawn } = require('child_process');
-
-const reporter = require('./reporter');
+const EventEmitter = require('events');
 
 function serially(promiseFuncs, initialValue) {
     return promiseFuncs.reduce((prev, curr) => prev.then(curr), Promise.resolve(initialValue))
@@ -8,7 +7,7 @@ function serially(promiseFuncs, initialValue) {
 
 const CommandExecutor = {
     deps: {
-        reporter, spawn
+        spawn
     },
 
     CommandExecutor(command) {
@@ -44,11 +43,9 @@ const CommandExecutor = {
     }
 };
 
-const StepExecutor = {
-    deps: {
-        reporter
-    },
+Object.setPrototypeOf(CommandExecutor, EventEmitter);
 
+const StepExecutor = {
     StepExecutor(step) {
         this.step = step;
     },
@@ -62,11 +59,9 @@ const StepExecutor = {
     }
 };
 
-const Executor = {
-    deps: {
-        reporter
-    },
+Object.setPrototypeOf(StepExecutor, EventEmitter);
 
+const Executor = {
     Executor(brocanFile) {
         this.brocanFile = brocanFile;
     },
@@ -79,5 +74,7 @@ const Executor = {
         }));
     }
 };
+
+Object.setPrototypeOf(Executor, EventEmitter);
 
 module.exports = Executor;
