@@ -34,8 +34,8 @@ const Sequ = {
             });
     },
     next() {
-        if (!this.inProgress) {
-            const providerWrapper = this.queue.pop();
+        if (!this.inProgress && this.queue.length > 0) {
+            const providerWrapper = this.queue.shift();
 
             this.inProgress = true;
 
