@@ -23,7 +23,7 @@ const publisher = {
             pubsub$: true
         });
 
-        this.deps.hemera.act(patter);
+        this.deps.hemera.act(pattern);
     }
 };
 

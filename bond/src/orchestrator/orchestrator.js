@@ -1,12 +1,13 @@
-const validateBuildId = function validateBuildId(buildId) {
-    return buildId == 'abc';
+const orchestrator = {
+    getBuildId() {
+        return 'abc';
+    },
+    validateBuildId(buildId) {
+        return buildId == 'abc';
+    },
+    updateBuildStatus() {
+        
+    }
 };
 
-const getBuildId = function getBuildId() {
-    return 'abc';
-}
-
-module.exports = {
-    validateBuildId,
-    getBuildId
-};
+module.exports = orchestrator;
