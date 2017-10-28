@@ -5,7 +5,7 @@ const hemera = new Hemera(nats);*/
 
 const orchestrator = require('../orchestrator/orchestrator');
 
-
+const logger = require('../logger').child({ component: 'publisher' });
 
 const publisher = {
     deps: {
@@ -22,6 +22,8 @@ const publisher = {
 
             pubsub$: true
         });
+
+        logger.debug('Publishing build status', pattern);
 
         this.deps.hemera.act(pattern);
     }

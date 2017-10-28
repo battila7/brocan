@@ -2,9 +2,11 @@ const env = require('@brocan/env').ensure([
     'reportCollector.port'
 ]);
 
+const logger = require('./logger').child({ component: 'main' });
+
 const collectorServer = require('./collector/server');
 
 collectorServer.listen()
     .then(function collectorStarted() {
-        console.log('Collector started!');
+        logger.info('Collector started.');
     });

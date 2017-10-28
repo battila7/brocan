@@ -2,6 +2,8 @@ const fastify = require('fastify')();
 
 const env = require('@brocan/env');
 
+const logger = require('../logger').child({ component: 'server' });
+
 const listen = function listen() {
     return new Promise(function callback(resolve, reject) {
         fastify.register([
@@ -21,8 +23,7 @@ const listen = function listen() {
         });
     }).then(function serverListening() {
         for (const route of fastify) {
-            // Replace with proper logging
-            console.log(route);
+            logger.info('Created route mapping for %s', Object.keys(route));
         }
     });
 };
