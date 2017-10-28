@@ -14,6 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "@brocan/env": "^1.1.0",
-    "fastify": "^0.30.3"
+    "fastify": "^0.30.3",
+    "hjson": "^3.1.0",
+    "pino": "^4.8.1"
   }
 }

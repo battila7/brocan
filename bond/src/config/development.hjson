@@ -1,0 +1,5 @@
+{
+    reportCollector: {
+        port: 3000
+    }
+}

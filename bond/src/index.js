@@ -1,11 +1,10 @@
 const env = require('@brocan/env').ensure([
-    'PORT'
+    'reportCollector.port'
 ]);
 
-const fastify = require('fastify')();
+const collectorServer = require('./collector/server');
 
-fastify.listen(env.get('PORT'), function listenCallback(err) {
-    if (err) {
-        throw err;
-    }
-});
+collectorServer.listen()
+    .then(function collectorStarted() {
+        console.log('Collector started!');
+    });
