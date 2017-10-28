@@ -1,0 +1,11 @@
+base: java8
+owner: battila7
+steps:
+  - name: compile
+    commands:
+      - echo hi
+      - echo there
+  - name: build
+    commands:
+      - echo hi
+      - echo there

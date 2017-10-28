@@ -12,3 +12,14 @@ The intended features of Brocan are the following:
   * Log-following of running builds.
   * Custom environment variable passing.
     * Allows repository owners to pass environment variables to the build context.
+
+
+## Components
+
+### Apps/Services
+
+  * [Bolt](bolt) - Command line build runner tool.
+
+### Libraries
+
+  * [env](env) - Environment configuration libary for Node based on [node-config](https://github.com/lorenwest/node-config).
