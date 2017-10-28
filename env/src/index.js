@@ -19,7 +19,7 @@ const env = {
         return this;
     },
     get(property) {
-        return this.deps.config.get(property);
+        return this.hasEnv(property) ? this.getEnv(property) : this.deps.config.get(property);
     },
     getOrDefault(property, value) {
         return this.has(property) ? this.get(property) : value;
@@ -28,14 +28,16 @@ const env = {
         return this.has(property) ? this.get(property) : provider(property);
     },
     has(property) {
-        return this.deps.config.has(property);
+        return this.hasEnv(property) || this.deps.config.has(property);
+    },
+    hasEnv(property) {
+        return Object.prototype.hasOwnProperty.call(process.env, property);
+    },
+    getEnv(property) {
+        return process.env[property];
     }
 };
 
 Object.setPrototypeOf(env, null);
-
-config.ensure = function ensure(properties) {
-    
-};
 
 module.exports = env;
