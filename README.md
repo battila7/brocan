@@ -23,3 +23,4 @@ The intended features of Brocan are the following:
 ### Libraries
 
   * [env](env) - Environment configuration libary for Node based on [node-config](https://github.com/lorenwest/node-config).
+  * [sequ](sequ) - Node promise queue which ensures the sequential execution of promises.
