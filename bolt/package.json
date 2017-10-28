@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "The build runner of Brocan CI.",
   "main": "src/index.js",
+  "bin": "src/index.js",
   "repository": {
     "url": "https://github.com/battila7/brocan",
     "type": "git"
@@ -13,11 +14,11 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
+    "@brocan/env": "^1.0.0",
     "bluebird": "^3.5.1",
     "got": "^7.1.0",
     "joi": "^13.0.1",
     "js-yaml": "^3.10.0",
-    "winston": "^3.0.0-rc1",
-    "yargs": "^10.0.3"
+    "winston": "^3.0.0-rc1"
   }
 }

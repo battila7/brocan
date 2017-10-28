@@ -2,8 +2,6 @@ const got = require('got');
 
 const logger = require('./logger');
 
-const parentHost = 'localhost:8080';
-
 const status = {
     pending: 'pending',
     in_progess: 'in_progress',
@@ -18,14 +16,14 @@ const Reporter = {
         got
     },
 
-    Reporter(buildId) {
-        this.mappings = this.assembleMappings(buildId);
+    Reporter(host, buildId) {
+        this.mappings = this.assembleMappings(host, buildId);
     },
-    assembleMappings(buildId) {
+    assembleMappings(host, buildId) {
         return {
-            buildReport: `${parentHost}/${buildId}/report/build`,
-            stepReport: `${parentHost}/${buildId}/report/step`,
-            commandReport: `${parentHost}/${buildId}/report/command`,
+            buildReport: `${host}/${buildId}/report/build`,
+            stepReport: `${host}/${buildId}/report/step`,
+            commandReport: `${host}/${buildId}/report/command`,
         }
     },
     initWithBuildEmitter(emitter, brocanFile) {
