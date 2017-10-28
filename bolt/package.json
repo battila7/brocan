@@ -1,6 +1,6 @@
 {
   "name": "@brocan/bolt",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "The build runner of Brocan CI.",
   "main": "src/index.js",
   "bin": {
@@ -16,8 +16,8 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/env": "^1.0.0",
-    "bluebird": "^3.5.1",
+    "@brocan/env": "^1.1.1",
+    "@brocan/sequ": "^1.0.0",
     "got": "^7.1.0",
     "joi": "^13.0.1",
     "js-yaml": "^3.10.0",

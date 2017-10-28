@@ -1,16 +1,22 @@
+const { readFile } = require('fs');
 const yaml = require('js-yaml');
-const bluebird = require('bluebird');
-
-const readFileAsync = bluebird.promisify(require('fs').readFile);
 
 const parser = {
     deps: {
-        yaml, readFileAsync
+        yaml, readFile
     },
 
     parseFile(filename) {
-        return this.deps.readFileAsync(filename)
-                .then(input => this.deps.yaml.safeLoad(input))
+        return new Promise(function readPromise(resolve, reject) {
+            this.deps.readFile(filename, {}, function callback(err, data) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            })
+        }.bind(this))
+        .then(input => this.deps.yaml.safeLoad(input))
     }
 };
 

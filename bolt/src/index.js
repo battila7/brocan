@@ -6,6 +6,8 @@ const env = require('@brocan/env').ensure([
     'BOLT_RUNNER_REPORTER_HOST'
 ]);
 
+const Sequ = require('@brocan/sequ');
+
 const logger = require('./logger');
 const parser = require('./parser');
 const validator = require('./validator');
@@ -17,7 +19,7 @@ const buildId = env.get('BOLT_RUNNER_BUILD_ID');
 const reporterHost = env.get('BOLT_RUNNER_REPORTER_HOST')
 
 const reporter = Object.create(Reporter);
-reporter.Reporter(reporterHost, buildId);
+reporter.Reporter(reporterHost, buildId, Sequ());
 
 parser.parseFile(brocanFilePath)
     .then(function validateBrocanFile(brocanFile) {

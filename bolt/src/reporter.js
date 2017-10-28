@@ -16,8 +16,9 @@ const Reporter = {
         got
     },
 
-    Reporter(host, buildId) {
+    Reporter(host, buildId, sequ) {
         this.mappings = this.assembleMappings(host, buildId);
+        this.sequ = sequ;
     },
     assembleMappings(host, buildId) {
         return {
@@ -96,7 +97,7 @@ const Reporter = {
             json: true
         };
 
-        this.deps.got(uri, opts)
+        this.sequ.do(() => this.deps.got(uri, opts))
             .then(function success() {
                 logger.debug('Successful report to %s', uri);
             })

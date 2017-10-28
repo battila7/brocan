@@ -20,6 +20,7 @@ bolt
 ## Project Dependencies
 
   * env
+  * sequ
 
 ## Expected environment variables
 
