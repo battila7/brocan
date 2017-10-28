@@ -13,6 +13,7 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/env": "^1.0.0"
+    "@brocan/env": "^1.1.0",
+    "fastify": "^0.30.3"
   }
 }
