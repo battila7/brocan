@@ -9,12 +9,25 @@ const buildIdHandler = function buildIdHandler(req, resp, done) {
     done();
 };
 
+const publishWithScope = function publishWithScope(scope, info) {
+    const extendedInfo = Object.assign({}, info, {
+        scope
+    });
+
+    publisher.publish(extendedInfo);
+};
+
 const reportBuild = {
     method: 'POST',
     url: '/:buildId/report/build',
     beforeHandler: buildIdHandler,
-    async handler(req, resp) {
-        
+
+    handler(req, resp) {
+        resp.send({});
+
+        publishWithScope('build', req.body);
+
+        orchestrator.updateBuildStatus(req.body.status);
     }
 };
 
@@ -22,8 +35,11 @@ const reportStep = {
     method: 'POST',
     url: '/:buildId/report/step',
     beforeHandler: buildIdHandler,
-    async handler(req, resp) {
-        
+
+    handler(req, resp) {
+        resp.send({});
+
+        publishWithScope('step', req.body);
     }
 };
 
@@ -31,8 +47,11 @@ const reportCommand = {
     method: 'POST',
     url: '/:buildId/report/command',
     beforeHandler: buildIdHandler,
-    async handler(req, resp) {
-        
+
+    handler(req, resp) {
+        resp.send();
+
+        publishWithScope('command', req.body);
     }
 };
 
