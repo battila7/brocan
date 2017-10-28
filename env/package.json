@@ -1,7 +1,7 @@
 {
   "name": "@brocan/env",
   "version": "1.0.0",
-  "description": "Environment variable library of Brocan CI.",
+  "description": "A simple wrapper around node-config which provides a way to ensure the presence of required properties.",
   "main": "src/index.js",
   "repository": {
     "url": "https://github.com/battila7/brocan",
@@ -11,5 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Attila Bagossy",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "config": "^1.27.0"
+  }
 }
