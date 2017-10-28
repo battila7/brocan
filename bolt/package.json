@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "The build runner of Brocan CI.",
   "main": "src/index.js",
-  "bin": "src/index.js",
+  "bin": {
+    "bolt": "src/index.js"
+  },
   "repository": {
     "url": "https://github.com/battila7/brocan",
     "type": "git"
