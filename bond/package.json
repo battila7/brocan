@@ -1,0 +1,18 @@
+{
+  "name": "bond",
+  "version": "1.0.0",
+  "description": "The build agent of Brocan CI.",
+  "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/battila7/brocan",
+    "type": "git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Attila Bagossy",
+  "license": "MIT",
+  "dependencies": {
+    "@brocan/env": "^1.0.0"
+  }
+}
