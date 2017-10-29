@@ -16,11 +16,9 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/env": "^1.0.0",
-    "bluebird": "^3.5.1",
+    "@brocan/brocanfile": "^1.0.0",
+    "@brocan/env": "^1.2.0",
     "got": "^7.1.0",
-    "joi": "^13.0.1",
-    "js-yaml": "^3.10.0",
     "winston": "^3.0.0-rc1"
   }
 }
