@@ -17,6 +17,6 @@ const messaging = {
     }
 };
 
-Object.setPrototypeOf(messaging, hemera);
+// Object.setPrototypeOf(messaging, hemera);
 
 module.exports = messaging;

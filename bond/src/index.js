@@ -1,5 +1,6 @@
 const env = require('@brocan/env').ensure([
-    'reportCollector.port'
+    'reportCollector.port',
+    'clone.directory'
 ]);
 
 const logger = require('./logger').child({ component: 'main' });

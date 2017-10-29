@@ -1,11 +1,14 @@
 const ASQ = require('asynquence');
+const env = require('@brocan/env');
 
-const logger = require('../logger').child({ componenet: 'orchestrator' });
+const logger = require('../logger').child({ component: 'orchestrator' });
 
 const queue = require('./build-queue');
 
 const acquireBuildStep = require('./steps/acquire-build');
 const cloneRepoStep = require('./steps/clone-repo');
+
+const cloneDirectory = env.get('clone.directory');
 
 const orchestrator = {
     deps: {
@@ -44,7 +47,7 @@ const orchestrator = {
         return build;
     },
     cloneRepo(build) {
-        return cloneRepoStep.clone(build.repoUri, build.branch, './tmp');
+        return this.deps.cloneRepoStep.clone(build.repoUri, build.branch, cloneDirectory);
     },
     getBuildId() {
         return 'abc';
