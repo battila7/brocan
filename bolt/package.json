@@ -1,6 +1,6 @@
 {
   "name": "@brocan/bolt",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "The build runner of Brocan CI.",
   "main": "src/index.js",
   "bin": {
@@ -18,6 +18,7 @@
   "dependencies": {
     "@brocan/brocanfile": "^1.0.0",
     "@brocan/env": "^1.2.0",
+    "@brocan/sequ": "^1.0.0",
     "got": "^7.1.0",
     "winston": "^3.0.0-rc1"
   }
