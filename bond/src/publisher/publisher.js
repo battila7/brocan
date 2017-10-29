@@ -1,19 +1,16 @@
-/*const Hemera = require('nats-hemera');
-const nats = require('nats').connect();
-
-const hemera = new Hemera(nats);*/
-
 const orchestrator = require('../orchestrator/orchestrator');
+const messaging = require('../messaging');
 
 const logger = require('../logger').child({ component: 'publisher' });
 
 const publisher = {
     deps: {
-        hemera: {
-            act: () => null
-        }
+        messaging
     },
 
+    setup() {
+        return Promise.resolve();
+    },
     publish(info) {
         const pattern = Object.assign({}, info, {
             topic: 'build',
@@ -25,7 +22,7 @@ const publisher = {
 
         logger.debug('Publishing build status', pattern);
 
-        this.deps.hemera.act(pattern);
+        this.deps.messaging.act(pattern);
     }
 };
 
