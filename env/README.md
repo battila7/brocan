@@ -10,7 +10,7 @@ const env = require('@brocan/env').ensure([
     'PORT'
 ]);
 
-const port = env.get('PORT');
+const [ port, host ] = env.getAll([ 'PORT', 'HOST' ]);
 
 // will return localhost if HOST is unset
 const host = env.getOrDefault('HOST', 'localhost');
@@ -27,6 +27,10 @@ Returns the env instance if all properties are set.
 ### `get(property: string): string`
 
 Provides the same functionality as `config.get()`.
+
+### `getAll(...properties: string): Array<string>`
+
+Returns property values for multiple properties.
 
 ### `getOrDefault(property: string, value: any): any`
 
