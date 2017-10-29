@@ -1,5 +1,5 @@
 {
-  "name": "brocanfile",
+  "name": "@brocan/brocanfile",
   "version": "1.0.0",
   "description": "Brocanfile parser and validator.",
   "main": "src/index.js",
