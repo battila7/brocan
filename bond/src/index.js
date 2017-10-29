@@ -20,5 +20,8 @@ const publisherPromise = publisher.setup()
 
 Promise.all([ collectorPromise, publisherPromise])
     .then(function readyToGo() {
-        orchestrator.start();
+        return orchestrator.setup();
+    })
+    .then(function start() {
+        return orchestrator.start();
     });
