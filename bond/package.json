@@ -13,12 +13,12 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/env": "^1.1.0",
+    "@brocan/env": "^1.2.0",
     "faktory-client": "^0.2.2",
     "fastify": "^0.30.3",
     "hjson": "^3.1.0",
     "nats": "^0.7.24",
-    "nats-hemera": "^2.3.1",
+    "nats-hemera": "^2.3.2",
     "pino": "^4.8.1"
   }
 }
