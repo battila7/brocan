@@ -21,6 +21,9 @@ const env = {
     get(property) {
         return this.hasEnv(property) ? this.getEnv(property) : this.deps.config.get(property);
     },
+    getAll(...properties) {
+        return properties.map(property => this.get(property));
+    },
     getOrDefault(property, value) {
         return this.has(property) ? this.get(property) : value;
     },
