@@ -19,6 +19,7 @@ bolt
 
 ## Project Dependencies
 
+  * brocanfile
   * env
   * sequ
 
