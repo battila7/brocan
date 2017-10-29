@@ -1,7 +1,5 @@
 const client = require('faktory-client').create();
 
-const [  ]
-
 const queue = {
     deps: {
         client
@@ -11,6 +9,11 @@ const queue = {
         return client.connect();
     },
     next() {
-        return
+        return client.fetch([ 'default', 'critical' ]);
+    },
+    done(jobId) {
+        return client.ack(jobId);
     }
 }
+
+module.exports = queue;

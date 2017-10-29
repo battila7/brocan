@@ -1,4 +1,13 @@
+const queue = require('./build-queue');
+
 const orchestrator = {
+    deps: {
+        queue
+    },
+
+    start() {
+        return queue.setup();
+    },
     getBuildId() {
         return 'abc';
     },
