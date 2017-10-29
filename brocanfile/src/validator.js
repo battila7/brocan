@@ -29,6 +29,4 @@ const validator = {
     }
 };
 
-Object.setPrototypeOf(validator, null);
-
 module.exports = validator;
