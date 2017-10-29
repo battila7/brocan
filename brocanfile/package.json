@@ -4,7 +4,7 @@
   "description": "Brocanfile parser and validator.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/sequ",
+    "url": "https://github.com/battila7/brocan/tree/master/brocanfile",
     "type": "git"
   },
   "scripts": {
