@@ -22,5 +22,6 @@ The intended features of Brocan are the following:
 
 ### Libraries
 
+  * [brocanfile](brocanfile) - Node brocanfile parser and validator.
   * [env](env) - Environment configuration libary for Node based on [node-config](https://github.com/lorenwest/node-config).
   * [sequ](sequ) - Node promise queue which ensures the sequential execution of promises.
