@@ -1,6 +1,8 @@
 const path = require('path');
 
 const ASQ = require('asynquence');
+require('asynquence-contrib');
+
 const env = require('@brocan/env');
 
 const logger = require('../logger').child({ component: 'orchestrator' });
@@ -10,12 +12,14 @@ const queue = require('./build-queue');
 const acquireBuildStep = require('./steps/acquire-build');
 const cloneRepoStep = require('./steps/clone-repo');
 const readBaseImageStep = require('./steps/read-base-image');
+const runBuildStep = require('./steps/runBuildStep');
+const cleanUpStep = require('./steps/clean-up');
 
 const cloneDirectory = env.get('clone.directory');
 
 const orchestrator = {
     deps: {
-        queue, acquireBuildStep, cloneRepoStep, readBaseImageStep
+        queue, acquireBuildStep, cloneRepoStep, readBaseImageStep, runBuildStep, cleanUpStep
     },
 
     setup() {
@@ -28,10 +32,19 @@ const orchestrator = {
             .promise(this.getNextBuild.bind(this))
             .promise(this.cloneRepo.bind(this))
             .promise(this.readBaseImage.bind(this))
+            .promise(this.runBuild.bind(this))
+            .promise(this.cleanUp.bind(this))
             .or(err => {
                 logger.warn('Build execution failed', err);
 
                 this.reschedule();
+
+                return this.cleanUp();
+            })
+            .then(done => {
+                this.reschedule();
+
+                done();
             });
     },
     reschedule() {
@@ -54,6 +67,9 @@ const orchestrator = {
         await this.deps.cloneRepoStep.clone(build.repoUri, build.branch, cloneDirectory);
 
         return build;
+    },
+    cleanUp() {
+        return this.deps.cleanUpStep.cleanUp(cloneDirectory);
     },
     readBaseImage(build) {
         const filename = path.join(cloneDirectory, 'brocan.hjson');

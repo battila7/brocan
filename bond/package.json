@@ -16,6 +16,7 @@
     "@brocan/brocanfile": "^1.0.0",
     "@brocan/env": "^1.2.0",
     "asynquence": "^0.10.1",
+    "asynquence-contrib": "^0.28.1",
     "dockerode": "^2.5.3",
     "faktory-client": "^0.2.2",
     "fastify": "^0.30.3",
@@ -23,6 +24,7 @@
     "nats": "^0.7.24",
     "nats-hemera": "^2.3.2",
     "nodegit": "^0.20.3",
-    "pino": "^4.8.1"
+    "pino": "^4.8.1",
+    "rimraf": "^2.6.2"
   }
 }
