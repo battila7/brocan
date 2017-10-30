@@ -12,7 +12,7 @@ const queue = require('./build-queue');
 const acquireBuildStep = require('./steps/acquire-build');
 const cloneRepoStep = require('./steps/clone-repo');
 const readBaseImageStep = require('./steps/read-base-image');
-const runBuildStep = require('./steps/runBuildStep');
+const runBuildStep = require('./steps/run-build');
 const cleanUpStep = require('./steps/clean-up');
 
 const cloneDirectory = env.get('clone.directory');
@@ -67,6 +67,9 @@ const orchestrator = {
         await this.deps.cloneRepoStep.clone(build.repoUri, build.branch, cloneDirectory);
 
         return build;
+    },
+    runBuild(base) {
+        return this.deps.runBuildStep.run(base);
     },
     cleanUp() {
         return this.deps.cleanUpStep.cleanUp(cloneDirectory);

@@ -2,4 +2,7 @@
     reportCollector: {
         port: 3000
     }
+    clone: {
+        directory: tmp
+    }
 }
