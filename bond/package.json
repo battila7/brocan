@@ -21,6 +21,7 @@
     "faktory-client": "^0.2.2",
     "fastify": "^0.30.3",
     "hjson": "^3.1.0",
+    "mkdirp": "^0.5.1",
     "nats": "^0.7.24",
     "nats-hemera": "^2.3.2",
     "nodegit": "^0.20.3",

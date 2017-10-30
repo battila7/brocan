@@ -14,12 +14,13 @@ const cloneRepoStep = require('./steps/clone-repo');
 const readBaseImageStep = require('./steps/read-base-image');
 const runBuildStep = require('./steps/run-build');
 const cleanUpStep = require('./steps/clean-up');
+const createDirStep = require('./steps/create-dir');
 
 const cloneDirectory = env.get('clone.directory');
 
 const orchestrator = {
     deps: {
-        queue, acquireBuildStep, cloneRepoStep, readBaseImageStep, runBuildStep, cleanUpStep
+        queue, acquireBuildStep, cloneRepoStep, readBaseImageStep, runBuildStep, cleanUpStep, createDirStep
     },
 
     setup() {
@@ -30,6 +31,7 @@ const orchestrator = {
 
         ASQ()
             .promise(this.getNextBuild.bind(this))
+            .promise(this.createDir.bind(this))
             .promise(this.cloneRepo.bind(this))
             .promise(this.readBaseImage.bind(this))
             .promise(this.runBuild.bind(this))
@@ -46,6 +48,9 @@ const orchestrator = {
 
                 done();
             });
+    },
+    createDir() {
+        return this.deps.createDirStep.createDir(cloneDirectory);
     },
     reschedule() {
         logger.info('Rescduling next build execution.');
