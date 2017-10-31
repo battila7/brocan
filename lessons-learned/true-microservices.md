@@ -1,10 +1,21 @@
 # True Microservices
 
-Inevitably, the most popular buzzword (apart from *deep learning*) in today's IT industry is the *microservice architecture*. Suddenly everyone started to develop their next product (or migrate the current ones) based on microservice architecture. I'm not trying to judge anyone. I have little experience with microservices and with IT in overall. Also, I haven't taken the effort to read all the curriculum on microservices. I just want to describe my understanding of what a microservice truly is. To be honest, I believe that this is the direction where software development should be heading, while at the same time this is not a shoot-for-the-moon-land-among-the-stars journey, but something that's when did wrong is much worse than developing a monolith. 
+Inevitably, the most popular buzzword (apart from *deep learning*) in today's IT industry is the *microservice architecture*. Suddenly everyone started to develop their next product (or migrate the current ones) based on microservice architecture. However, if you look behind the curtain, you'll find that although everyone's hyped about it, everyone has a different understanding of what it is. To be honest, while I believe that this is the direction where software development should be heading at, at the same time this is not a "shoot for the moon land among the stars" journey, but something that's when did wrong is much worse than developing a monolith. Of course, I'm not trying to judge anyone here. I have little experience with microservices and with IT in overall. Also, I haven't taken the effort to read all the curriculum on microservices. I just want to paint with some broad strokes what I believe a microservice is. Whether you agree or not, is up to you.
 
-In this article, I'm going to use two terms on every corner: *microservice architecture*, which refers to a software architecture that's driven by software components that can be referred to as microservices, and the almighty term, *microservice* which is... uhm, something. Basically, I could even stop writing here because I've already made my point: there is no common definition of this term. Thus instead of coming up with an *nth* definition, I'm going to describe what I'd call a microservice. This is not going to be a strict definition, but something like a guideline.
+In this article, I'm going to use two terms on every corner: 
 
-Based on my current level of understanding, the part in the word *microservice* we should put the emphasis on is *micro*. This perfectly describes the gist of microservices in an informal way: they're small, concentrated and *atomic*. Small is used here in the context of the number of lines that comprise the source code of the microservice. Concentrated refers to the responsibilities of such a unit: it should contain all the necessary knowledge to perform a specific task. *Atomicity* is closely related to the concentrated nature of microservices. A microservice should contain all the necessary knowledge that's needed for a *SINGLE* task. Not more and not less.
+  * *microservice architecture*, which refers to a software architecture that's driven by software components that can be referred to as microservices, and
+  * the almighty term, *microservice* which is... uhm, something. 
+  
+Basically, I could even stop writing here because I've already made my point: there is no common definition of this term. Thus instead of coming up with an *nth* definition, I'm going to describe what I'd call a microservice. This description is not going to be by any means formal or strict, but something that can be used in everyday scenarios.
+
+Based on my current level of understanding, the part in the word *microservice* we should put the emphasis on is *micro*. This perfectly describes the most important aspects of microservices in an informal way: 
+
+  * small,
+  * concentrated,
+  * atomic.
+
+Small is used here in the context of the number of lines that comprise the source code of the microservice. Concentrated refers to the responsibilities of such a unit: it should contain all the necessary knowledge to perform a specific task. *Atomicity* is closely related to the concentrated nature of microservices. A microservice should contain all the necessary knowledge that's needed for a *SINGLE* task. Not more and not less.
 
 Are these principles enough for developing good-enough microservices? Not at all. A single microservice is like what an ant is to a colony. Powerful on its own, but just a small piece that makes up the whole. Here the colony is the microservice architecture. Just to continue the analogy, in order to make up a functional colony, should an ant know what each of the others are doing? Not at all, again. Microservices should have as little knowledge about each other as possible. This means that they should be *loosely coupled*. 
 
