@@ -3,6 +3,6 @@
         port: 3000
     }
     clone: {
-        directory: tmp
+        directory: /home/attila/brocan/bond/tmp
     }
 }

@@ -1,26 +1,14 @@
 const path = require('path');
-
-const ASQ = require('asynquence');
-require('asynquence-contrib');
-
 const env = require('@brocan/env');
-
-const logger = require('../logger').child({ component: 'orchestrator' });
-
 const queue = require('./build-queue');
-
-const acquireBuildStep = require('./steps/acquire-build');
-const cloneRepoStep = require('./steps/clone-repo');
-const readBaseImageStep = require('./steps/read-base-image');
-const runBuildStep = require('./steps/run-build');
-const cleanUpStep = require('./steps/clean-up');
-const createDirStep = require('./steps/create-dir');
+const logger = require('../logger').child({ component: 'orchestrator' });
+const steps = require('./steps/steps');
 
 const cloneDirectory = env.get('clone.directory');
 
 const orchestrator = {
     deps: {
-        queue, acquireBuildStep, cloneRepoStep, readBaseImageStep, runBuildStep, cleanUpStep, createDirStep
+        queue, steps
     },
 
     setup() {
@@ -29,60 +17,97 @@ const orchestrator = {
     async start() {
         logger.info('Starting next build process');
 
-        ASQ()
-            .promise(this.getNextBuild.bind(this))
-            .promise(this.createDir.bind(this))
-            .promise(this.cloneRepo.bind(this))
-            .promise(this.readBaseImage.bind(this))
-            .promise(this.runBuild.bind(this))
-            .promise(this.cleanUp.bind(this))
-            .or(err => {
-                logger.warn('Build execution failed', err);
+        const buildContext = {};
 
-                this.reschedule();
+        const buildPipelinePromise = this.buildPipeline(buildContext);
 
-                return this.cleanUp();
-            })
-            .then(done => {
-                this.reschedule();
+        const timeoutPromise = new Promise((resolve, reject) => {
+            setTimeout(() => reject('The build has timed out!'), 120000);
+        });
 
-                done();
-            });
+        try {
+            await Promise.race([buildPipelinePromise, timeoutPromise]);
+        } catch (e) {
+            logger.warn('Failed to execute build');
+            logger.warn(e);
+        } finally {
+            await this.cleanUpPipeline(buildContext);
+
+            this.reschedule();
+        }
     },
-    createDir() {
-        return this.deps.createDirStep.createDir(cloneDirectory);
+    buildPipeline(context) {
+        return [
+            this.getNextBuild,
+            this.createDirectory,
+            this.cloneRepository,
+            this.readBaseImage,
+            this.createContainer,
+            this.runContainer
+        ].map(func => func.bind(this, context))
+        .reduce((prev, curr) => prev.then(curr), Promise.resolve());
+    },
+    removeDirectory() {
+        return this.deps.steps.removeDirectory.remove(cloneDirectory);
+    },
+    cleanUpPipeline(context) {
+        return [
+            this.removeDirectory,
+            this.stopContainer,
+            this.removeContainer,
+        ].map(func => func.bind(this, context))
+        .reduce((prev, curr) => prev.then(curr), Promise.resolve());
+    },
+    stopContainer(context) {
+        if (context.container && !context.stopped) {
+            return this.deps.steps.stopContainer.stop(context.container);
+        } else {
+            return Promise.resolve();
+        }
+    },
+    removeContainer(context) {
+        if (context.container) {
+            return this.deps.steps.removeContainer.remove(context.container);
+        } else {
+            return Promise.resolve();
+        }
+    },
+    async runContainer(context) {
+        await this.deps.steps.runContainer.run(context.container);
+
+        context.stopped = true;
+    },
+    async createContainer(context) {
+        context.container = await this.deps.steps.createContainer.create(context.base, context.buildId);
+    },
+    createDirectory() {
+        return this.deps.steps.createDirectory.create(cloneDirectory);
     },
     reschedule() {
-        logger.info('Rescduling next build execution.');
+        logger.info('Rescheduling next build execution.');
 
         setTimeout(() => this.start(), 10000);
     },
-    async getNextBuild() {
-        build = await this.deps.acquireBuildStep.acquire();
+    async getNextBuild(context) {
+        context.build = await this.deps.steps.acquireBuild.acquire();
 
-        if (!build) {
+        if (!context.build) {
             throw new Error('There is no build to execute.');
         }
 
-        logger.info('Executing build with id "%s"', build.buildId);
-
-        return build;
+        logger.info('Executing build with id "%s"', context.build.buildId);
+        logger.debug(context.build);
     },
-    async cloneRepo(build) {
-        await this.deps.cloneRepoStep.clone(build.repoUri, build.branch, cloneDirectory);
-
-        return build;
+    cloneRepository(context) {
+        return this.deps.steps.cloneRepository.clone(context.build.repoUri, context.build.branch, cloneDirectory);
     },
-    runBuild(base) {
-        return this.deps.runBuildStep.run(base);
+    runBuild(context) {
+        return this.deps.steps.runBuild.run(context.base);
     },
-    cleanUp() {
-        return this.deps.cleanUpStep.cleanUp(cloneDirectory);
-    },
-    readBaseImage(build) {
+    async readBaseImage(context) {
         const filename = path.join(cloneDirectory, 'brocan.hjson');
 
-        return this.deps.readBaseImageStep.getBaseImage(filename);
+        context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
     },
     getBuildId() {
         return 'abc';

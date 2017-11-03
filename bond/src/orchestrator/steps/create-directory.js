@@ -1,18 +1,20 @@
 const mkdirp = require('mkdirp');
 
-const logger = require('../../logger').child({ component: 'createDir' });
+const logger = require('../../logger').child({ component: 'createDirectory' });
 
-const createDirStep = {
+const createDirectory = {
     deps: {
         mkdirp
     },
 
-    createDir(directory) {
+    create(directory) {
         return new Promise((resolve, reject) => {
-            logger.info('Creating directory %s', directory);
+            logger.info('Creating directory "%s"', directory);
 
             return this.deps.mkdirp(directory, function callback(err) {
                 if (err) {
+                    logger.warn('Could not create directory "%s"', directory, err);
+
                     reject(err);
                 } else {
                     resolve();
@@ -22,4 +24,4 @@ const createDirStep = {
     }
 };
 
-module.exports = createDirStep;
+module.exports = createDirectory;

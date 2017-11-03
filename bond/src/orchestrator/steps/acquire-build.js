@@ -1,7 +1,7 @@
 const messaging = require('../../messaging');
 const queue = require('../build-queue');
 
-const acquireBuildStep = {
+const acquireBuild = {
     deps: {
         messaging, queue
     },
@@ -23,4 +23,4 @@ const acquireBuildStep = {
     }
 };
 
-module.exports = acquireBuildStep;
+module.exports = acquireBuild;

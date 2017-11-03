@@ -1,15 +1,15 @@
 const rimraf = require('rimraf');
 
-const logger = require('../../logger').child({ component: 'cleanUp' });
+const logger = require('../../logger').child({ component: 'removeDirectory' });
 
-const cleanUpStep = {
+const removeDirectory = {
     deps: {
         rimraf,
     },
 
-    cleanUp(directory) {
+    remove(directory) {
         return new Promise((resolve, reject) => {
-            logger.info('Cleaning up directory %s', directory);
+            logger.info('Removing directory "%s"', directory);
 
             return this.deps.rimraf(directory, function callback(err) {
                 if (err) {
@@ -22,4 +22,4 @@ const cleanUpStep = {
     }
 };
 
-module.exports = cleanUpStep;
+module.exports = removeDirectory;

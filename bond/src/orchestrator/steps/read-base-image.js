@@ -2,7 +2,7 @@ const brocanfile = require('@brocan/brocanfile');
 
 const logger = require('../../logger').child({ component: 'readBaseImage' });
 
-const readBaseImageStep = {
+const readBaseImage = {
     deps: {
         brocanfile
     },
@@ -10,10 +10,10 @@ const readBaseImageStep = {
     async getBaseImage(filename) {
         const contents = await brocanfile.read(filename);
 
-        logger.info('Extracted base image %s', contents.base);
+        logger.info('Extracted base image "%s"', contents.base);
 
         return contents.base;
     }
 };
 
-module.exports = readBaseImageStep;
+module.exports = readBaseImage;
