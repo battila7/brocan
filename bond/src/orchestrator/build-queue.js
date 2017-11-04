@@ -5,45 +5,23 @@ const client = require('faktory-client').create({
     port: config.get('faktory.port')
 });
 
-const RECONNECT_ATTEMPTS = 5;
-
-const attempt = async function(action, recover) {
-    let attempts = 0;
-
-    while (true) {
-        try {
-            return await Promise.resolve(action());
-        } catch (err) {
-            ++attempts;
-
-            if (attempts >= RECONNECT_ATTEMPTS) {
-                throw err;
-            } else {
-                await Promise.resolve(recover());
-            }
-        }
-    }
-};
-
 const Queue = {
     deps: {
         client
     },
 
-    setup() {
-        return client.connect();
+    async setup() {
+        await this.deps.client.connect();
     },
-    next() {
-        return attempt(
-            () => this.deps.client.fetch('default'),
-            () => this.deps.client.connect()
-        );
+    async next() {
+        await this.deps.client.connect();
+
+        return this.deps.client.fetch('default');
     },
-    done(jobId) {
-        return attempt(
-            () => this.deps.client.ack(jobId),
-            () => this.deps.client.connect()
-        );
+    async done(jobId) {
+        await this.deps.client.connect();
+
+        return this.deps.client.ack(jobId)
     }
 }
 

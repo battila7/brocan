@@ -9,6 +9,7 @@ services:
       - nats
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/brocan:/tmp/brocan
 
   # Third-party services
   faktory:

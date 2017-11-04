@@ -102,7 +102,7 @@ const Orchestrator = {
         context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
     },
     async createContainer(context) {
-        context.container = await this.deps.steps.createContainer.create(context.base, context.build.buildId);
+        context.container = await this.deps.steps.createContainer.create(context.base, context.build.buildId, cloneDirectory);
     },
     async runContainer(context) {
         await this.deps.steps.runContainer.run(context.container);
@@ -119,7 +119,7 @@ const Orchestrator = {
     },
     removeFromQueue(context) {
         if (context.build) {
-            return this.deps.steps.removeFromQueue(context.build.jobId);
+            return this.deps.steps.removeFromQueue.remove(context.build.jobId);
         } else {
             return Promise.resolve();
         }

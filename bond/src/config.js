@@ -21,7 +21,8 @@ const config = convict({
         directory: {
             doc: 'The directory where the repositories will be cloned into.',
             format: String,
-            default: '/tmp'
+            default: '/tmp/brocan/clone',
+            env: 'CLONE_DIRECTORY'
         }
     },
     faktory: {
