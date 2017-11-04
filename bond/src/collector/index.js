@@ -2,7 +2,7 @@ const EventEmitter = require('events');
 
 const fastify = require('fastify')();
 
-const env = require('@brocan/env');
+const config = require('../config');
 
 const logger = require('../logger').child({ component: 'server' });
 
@@ -32,7 +32,7 @@ const Collector = {
                 }
             });
     
-            fastify.listen(env.get('reportCollector.port'), function listenCallback(err) {
+            fastify.listen(config.get('collector.port'), function listenCallback(err) {
                 if (err) {
                     reject(err);
                 }

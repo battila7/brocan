@@ -1,8 +1,0 @@
-{
-    reportCollector: {
-        port: 3000
-    }
-    clone: {
-        directory: /home/attila/brocan/bond/tmp
-    }
-}

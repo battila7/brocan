@@ -1,0 +1,5 @@
+{
+    clone: {
+        directory: "/home/attila/brocan/bond/tmp"
+    }
+}

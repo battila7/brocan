@@ -1,13 +1,13 @@
 const path = require('path');
-const env = require('@brocan/env');
 const logger = require('../logger').child({ component: 'orchestrator' });
 const steps = require('./steps/');
+const config = require('../config');
 
 const Collector = require('../collector');
 const Publisher = require('../publisher');
 const Queue = require('./build-queue');
 
-const cloneDirectory = env.get('clone.directory');
+const cloneDirectory = config.get('clone.directory');
 
 const Orchestrator = {
     deps: {
