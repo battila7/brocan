@@ -5,7 +5,6 @@ Bond is the build agent of Brocan CI.
 ## Project Dependencies
 
   * brocanfile
-  * env
 
 ## Environment Dependencies
 
