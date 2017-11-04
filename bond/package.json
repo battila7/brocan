@@ -1,5 +1,5 @@
 {
-  "name": "bond",
+  "name": "@brocan/bond",
   "version": "2.0.0",
   "description": "The build agent of Brocan CI.",
   "main": "src/index.js",
