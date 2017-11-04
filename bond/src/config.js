@@ -7,7 +7,7 @@ const config = convict({
     env: {
         doc: 'The application environment.',
         format: ['production', 'development', 'test'],
-        default: 'development',
+        default: 'production',
         env: 'NODE_ENV'
     },
     collector: {
