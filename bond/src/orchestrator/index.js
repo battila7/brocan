@@ -65,6 +65,7 @@ const Orchestrator = {
     cleanUpPipeline(context) {
         return this.toSeq([
             this.publishFailure,
+            this.removeFromQueue,
             this.removeDirectory,
             this.stopContainer,
             this.removeContainer,
@@ -114,6 +115,13 @@ const Orchestrator = {
             logger.info('Publishing timeout update');
             
             this.updateBuildStatus(this.buildId, 'build', { status: 'failure', reason: 'timeout' });
+        }
+    },
+    removeFromQueue(context) {
+        if (context.build) {
+            return this.deps.steps.removeFromQueue(context.build.jobId);
+        } else {
+            return Promise.resolve();
         }
     },
     removeDirectory() {

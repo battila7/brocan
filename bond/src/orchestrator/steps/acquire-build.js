@@ -1,6 +1,8 @@
 const Messaging = require('../../messaging');
 const Queue = require('../build-queue');
 
+const logger = require('../../logger').child({ component: 'acquireBuild' });
+
 const acquireBuild = {
     deps: {
         Messaging, Queue
@@ -13,13 +15,21 @@ const acquireBuild = {
             return Promise.resolve(null);
         }
 
+        logger.info('Received new job with id "%s"', job.jid);
+
         const buildId = job.args[0];
 
-        return this.deps.Messaging.actAsync({
+        const metadata = await this.deps.Messaging.actAsync({
             topic: 'build',
             role: 'query',
             buildId
         });
+
+        logger.info('Succesfully retrieved build metadata');
+
+        metadata.jobId = job.jid;
+
+        return metadata;
     }
 };
 
