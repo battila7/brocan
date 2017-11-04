@@ -4,10 +4,11 @@
   "description": "The build agent of Brocan CI.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan",
+    "url": "https://github.com/battila7/brocan/tree/master/bond",
     "type": "git"
   },
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Attila Bagossy",

@@ -21,7 +21,21 @@ const config = convict({
         directory: {
             doc: 'The directory where the repositories will be cloned into.',
             format: String,
-            default: null
+            default: '/tmp'
+        }
+    },
+    faktory: {
+        host: {
+            doc: 'The host of the Faktory instance which serves as a build queue.',
+            format: String,
+            default: 'faktory',
+            env: 'FAKTORY_HOST'
+        },
+        port: {
+            doc: 'The port of the Faktory instance which serves as a build queue.',
+            format: 'port',
+            default: '7419',
+            env: 'FAKTORY_PORT'
         }
     }
 });
