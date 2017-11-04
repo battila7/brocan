@@ -1,0 +1,17 @@
+{
+  "name": "@brocan/build-inject",
+  "version": "1.0.0",
+  "description": "Allows the injection of manually created builds to ease the testing of Brocan.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Attila Bagossy",
+  "license": "MIT",
+  "dependencies": {
+    "convict": "^4.0.1",
+    "faktory-client": "^0.2.2",
+    "nats": "^0.7.24",
+    "nats-hemera": "^2.3.2"
+  }
+}
