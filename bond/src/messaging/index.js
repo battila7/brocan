@@ -1,7 +1,11 @@
-/*const Hemera = require('nats-hemera');
-const nats = require('nats').connect();
+const config = require('../config');
 
-const hemera = new Hemera(nats);*/
+const Hemera = require('nats-hemera');
+const nats = require('nats').connect({
+    url: config.get('nats.uri')
+});
+
+const hemera = new Hemera(nats);
 
 const Messaging = {
     actAsync(pattern) {
@@ -14,12 +18,9 @@ const Messaging = {
                 }
             });
         }.bind(this));
-    },
-    act() {
-        return Promise.resolve();
     }
 };
 
-// Object.setPrototypeOf(messaging, hemera);
+Object.setPrototypeOf(Messaging, hemera);
 
 module.exports = Messaging;

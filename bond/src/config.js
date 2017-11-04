@@ -37,6 +37,14 @@ const config = convict({
             default: '7419',
             env: 'FAKTORY_PORT'
         }
+    },
+    nats: {
+        uri: {
+            doc: 'The URI of the NATS network.',
+            format: String,
+            default: 'nats://nats:4222',
+            env: 'NATS_URI'
+        }
     }
 });
 

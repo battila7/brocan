@@ -6,6 +6,7 @@ services:
     build: ../../bond
     depends_on:
       - faktory
+      - nats
 
   # Third-party services
   faktory:
@@ -14,4 +15,11 @@ services:
     ports:
       - '7419:7419'
       - '7420:7420'
+  nats:
+    image: nats
+    ports:
+      - '4222:4222'
+      - '6222:6222'
+      - '8222:8222'
+
     
