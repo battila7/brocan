@@ -6,9 +6,11 @@ const env = require('@brocan/env');
 
 const logger = require('../logger').child({ component: 'server' });
 
+const VALID_STAGES = ['command', 'step', 'build'];
+
 const collector = {
     deps: {
-        fastify, routes
+        fastify
     },
 
     setup() {
@@ -21,8 +23,12 @@ const collector = {
             
                 handler(req, resp) {
                     resp.send({});
-            
-                    fastify.emit('progress', buildId, stage, req.body);
+
+                    if (VALID_STAGES.includes(req.params.stage)) {
+                        fastify.emit('progress', req.params.buildId, req.params.stage, req.body);
+                    } else {
+                        logger.warn('Invalid stage received "%s"', req.params.stage);
+                    }
                 }
             });
     

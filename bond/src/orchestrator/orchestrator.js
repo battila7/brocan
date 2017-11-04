@@ -1,5 +1,6 @@
 const path = require('path');
 const env = require('@brocan/env');
+const collector = require('../collector/collector');
 const publisher = require('../publisher/publisher');
 const queue = require('./build-queue');
 const logger = require('../logger').child({ component: 'orchestrator' });
@@ -9,10 +10,12 @@ const cloneDirectory = env.get('clone.directory');
 
 const orchestrator = {
     deps: {
-        publisher, queue, steps
+        collector, publisher, queue, steps
     },
 
     setup() {
+        collector.on('progress', this.updateBuildStatus.bind(this));
+
         return queue.setup();
     },
     async performBuild() {
@@ -24,6 +27,8 @@ const orchestrator = {
 
         const timeoutPromise = new Promise((resolve, reject) => {
             const callback = () => {
+                buildContext.timeout = true;
+
                 reject('The build has timed out!');
             };
 
@@ -58,6 +63,7 @@ const orchestrator = {
     },
     cleanUpPipeline(context) {
         return this.toSeq([
+            this.publishFailure,
             this.removeDirectory,
             this.stopContainer,
             this.removeContainer,
@@ -102,6 +108,13 @@ const orchestrator = {
         context.stopped = true;
     },
 
+    publishFailure(context) {
+        if (context.timeout) {
+            logger.info('Publishing timeout update');
+            
+            this.updateBuildStatus(this.buildId, 'build', { status: 'failure', reason: 'timeout' });
+        }
+    },
     removeDirectory() {
         return this.deps.steps.removeDirectory.remove(cloneDirectory);
     },
@@ -124,18 +137,21 @@ const orchestrator = {
 
         this.buildId = undefined;
     },
-    async publishFailure() {
-        logger.info('Publishing timeout update');
 
-        this.deps.publisher.publish({
-            status: 'failed',
-            reason: 'timeout'
+    updateBuildStatus(buildId, stage, payload) {
+        if (buildId != this.buildId) {
+            logger.warn('Dropping build status update because build id "%s" does not match "%s"', buildId, this.buildId);
+
+            return;
+        }
+
+        const message = Object.assign({}, payload, {
+            buildId,
+            stage
         });
-    },
 
-    getBuildId() {
-      return this.buildId;  
-    },
+        return this.deps.publisher.publish(message);
+    }
 };
 
 module.exports = orchestrator;

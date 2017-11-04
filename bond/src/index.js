@@ -9,7 +9,7 @@ const collectorServer = require('./collector/server');
 const publisher = require('./publisher/publisher');
 const orchestrator = require('./orchestrator/orchestrator');
 
-const collectorPromise = collectorServer.listen()
+const collectorPromise = collectorServer.setup()
     .then(function collectorStarted() {
         logger.info('Collector started.');
     });
