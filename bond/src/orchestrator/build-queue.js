@@ -14,7 +14,7 @@ const Queue = {
         return client.connect();
     },
     next() {
-        return client.fetch([ 'default', 'critical' ]);
+        return client.fetch('default');
     },
     done(jobId) {
         return client.ack(jobId);

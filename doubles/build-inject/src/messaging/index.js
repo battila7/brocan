@@ -11,8 +11,8 @@ const hemera = new Hemera(nats);
 hemera.add({
     topic: 'build',
     role: 'query'
-}, function queryHandler(req) {
+}, async function queryHandler(req) {
     console.log(req);
 
-    return Storage.get(req.buildId);
+    return await Storage.get(req.buildId);
 });
