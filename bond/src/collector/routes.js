@@ -2,7 +2,7 @@ const orchestrator = require('../orchestrator/orchestrator');
 const publisher = require('../publisher/publisher');
 
 const buildIdHandler = function buildIdHandler(req, resp, done) {
-    if (!orchestrator.validateBuildId(req.params.buildId)) {
+    if (orchestrator.getBuildId() != req.params.buildId) {
         resp.send({});
     }
 
@@ -26,8 +26,6 @@ const reportBuild = {
         resp.send({});
 
         publishWithScope('build', req.body);
-
-        orchestrator.updateBuildStatus(req.body.status);
     }
 };
 

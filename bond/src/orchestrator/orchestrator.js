@@ -14,7 +14,7 @@ const orchestrator = {
     setup() {
         return queue.setup();
     },
-    async start() {
+    async performBuild() {
         logger.info('Starting next build process');
 
         const buildContext = {};
@@ -36,27 +36,66 @@ const orchestrator = {
             this.reschedule();
         }
     },
+    toSeq(array, context) {
+        return array
+            .map(func => func.bind(this, context))
+            .reduce((prev, curr) => prev.then(curr), Promise.resolve());
+    },
     buildPipeline(context) {
-        return [
+        return this.toSeq([
             this.getNextBuild,
             this.createDirectory,
             this.cloneRepository,
             this.readBaseImage,
             this.createContainer,
             this.runContainer
-        ].map(func => func.bind(this, context))
-        .reduce((prev, curr) => prev.then(curr), Promise.resolve());
-    },
-    removeDirectory() {
-        return this.deps.steps.removeDirectory.remove(cloneDirectory);
+        ], context);
     },
     cleanUpPipeline(context) {
-        return [
+        return this.toSeq([
             this.removeDirectory,
             this.stopContainer,
             this.removeContainer,
-        ].map(func => func.bind(this, context))
-        .reduce((prev, curr) => prev.then(curr), Promise.resolve());
+        ], context);
+    },
+    reschedule() {
+        logger.info('Rescheduling next build execution.');
+
+        setTimeout(() => this.performBuild(), 10000);
+    },
+
+    async getNextBuild(context) {
+        context.build = await this.deps.steps.acquireBuild.acquire();
+
+        if (!context.build) {
+            throw new Error('There is no build to execute.');
+        }
+
+        logger.info('Executing build with id "%s"', context.build.buildId);
+        logger.debug(context.build);
+    },
+    createDirectory() {
+        return this.deps.steps.createDirectory.create(cloneDirectory);
+    },
+    cloneRepository(context) {
+        return this.deps.steps.cloneRepository.clone(context.build.repoUri, context.build.branch, cloneDirectory);
+    },
+    async readBaseImage(context) {
+        const filename = path.join(cloneDirectory, 'brocan.hjson');
+
+        context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
+    },
+    async createContainer(context) {
+        context.container = await this.deps.steps.createContainer.create(context.base, context.buildId);
+    },
+    async runContainer(context) {
+        await this.deps.steps.runContainer.run(context.container);
+
+        context.stopped = true;
+    },
+
+    removeDirectory() {
+        return this.deps.steps.removeDirectory.remove(cloneDirectory);
     },
     stopContainer(context) {
         if (context.container && !context.stopped) {
@@ -72,48 +111,9 @@ const orchestrator = {
             return Promise.resolve();
         }
     },
-    async runContainer(context) {
-        await this.deps.steps.runContainer.run(context.container);
 
-        context.stopped = true;
-    },
-    async createContainer(context) {
-        context.container = await this.deps.steps.createContainer.create(context.base, context.buildId);
-    },
-    createDirectory() {
-        return this.deps.steps.createDirectory.create(cloneDirectory);
-    },
-    reschedule() {
-        logger.info('Rescheduling next build execution.');
-
-        setTimeout(() => this.start(), 10000);
-    },
-    async getNextBuild(context) {
-        context.build = await this.deps.steps.acquireBuild.acquire();
-
-        if (!context.build) {
-            throw new Error('There is no build to execute.');
-        }
-
-        logger.info('Executing build with id "%s"', context.build.buildId);
-        logger.debug(context.build);
-    },
-    cloneRepository(context) {
-        return this.deps.steps.cloneRepository.clone(context.build.repoUri, context.build.branch, cloneDirectory);
-    },
-    runBuild(context) {
-        return this.deps.steps.runBuild.run(context.base);
-    },
-    async readBaseImage(context) {
-        const filename = path.join(cloneDirectory, 'brocan.hjson');
-
-        context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
-    },
     getBuildId() {
-        return 'abc';
-    },
-    validateBuildId(buildId) {
-        return buildId == 'abc';
+      return buildId;  
     },
     updateBuildStatus() {
         
