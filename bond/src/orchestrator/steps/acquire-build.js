@@ -1,13 +1,13 @@
-const messaging = require('../../messaging');
-const queue = require('../build-queue');
+const Messaging = require('../../messaging');
+const Queue = require('../build-queue');
 
 const acquireBuild = {
     deps: {
-        messaging, queue
+        Messaging, Queue
     },
 
     async acquire() {
-        const job = await queue.next();
+        const job = await this.deps.Queue.next();
 
         if (!job) {
             return Promise.resolve(null);
@@ -15,7 +15,7 @@ const acquireBuild = {
 
         const buildId = job.args[0];
 
-        return this.deps.messaging.actAsync({
+        return this.deps.Messaging.actAsync({
             topic: 'build',
             role: 'query',
             buildId

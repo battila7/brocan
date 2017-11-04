@@ -1,22 +1,23 @@
 const path = require('path');
 const env = require('@brocan/env');
-const collector = require('../collector/collector');
-const publisher = require('../publisher/publisher');
-const queue = require('./build-queue');
 const logger = require('../logger').child({ component: 'orchestrator' });
-const steps = require('./steps/steps');
+const steps = require('./steps/');
+
+const Collector = require('../collector');
+const Publisher = require('../publisher');
+const Queue = require('./build-queue');
 
 const cloneDirectory = env.get('clone.directory');
 
-const orchestrator = {
+const Orchestrator = {
     deps: {
-        collector, publisher, queue, steps
+        Collector, Publisher, Queue, steps
     },
 
     setup() {
-        collector.on('progress', this.updateBuildStatus.bind(this));
+        this.deps.Collector.on('progress', this.updateBuildStatus.bind(this));
 
-        return queue.setup();
+        return this.deps.Queue.setup();
     },
     async performBuild() {
         logger.info('Starting next build process');
@@ -100,7 +101,7 @@ const orchestrator = {
         context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
     },
     async createContainer(context) {
-        context.container = await this.deps.steps.createContainer.create(context.base, context.buildId);
+        context.container = await this.deps.steps.createContainer.create(context.base, context.build.buildId);
     },
     async runContainer(context) {
         await this.deps.steps.runContainer.run(context.container);
@@ -150,8 +151,8 @@ const orchestrator = {
             stage
         });
 
-        return this.deps.publisher.publish(message);
+        return this.deps.Publisher.publish(message);
     }
 };
 
-module.exports = orchestrator;
+module.exports = Orchestrator;

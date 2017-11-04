@@ -1,6 +1,6 @@
 const client = require('faktory-client').create();
 
-const queue = {
+const Queue = {
     deps: {
         client
     },
@@ -16,4 +16,4 @@ const queue = {
     }
 }
 
-module.exports = queue;
+module.exports = Queue;

@@ -1,11 +1,10 @@
-const orchestrator = require('../orchestrator/orchestrator');
-const messaging = require('../messaging');
+const Messaging = require('../messaging');
 
 const logger = require('../logger').child({ component: 'publisher' });
 
-const publisher = {
+const Publisher = {
     deps: {
-        messaging
+        Messaging
     },
 
     setup() {
@@ -21,8 +20,8 @@ const publisher = {
 
         logger.debug('Publishing build status', pattern);
 
-        this.deps.messaging.act(pattern);
+        this.deps.Messaging.act(pattern);
     }
 };
 
-module.exports = publisher;
+module.exports = Publisher;

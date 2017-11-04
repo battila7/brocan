@@ -3,7 +3,7 @@ const nats = require('nats').connect();
 
 const hemera = new Hemera(nats);*/
 
-const messaging = {
+const Messaging = {
     actAsync(pattern) {
         return new Promise(function callback(resolve, reject) {
             this.act(pattern, function done(err, resp) {
@@ -19,4 +19,4 @@ const messaging = {
 
 // Object.setPrototypeOf(messaging, hemera);
 
-module.exports = messaging;
+module.exports = Messaging;

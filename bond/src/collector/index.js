@@ -8,7 +8,7 @@ const logger = require('../logger').child({ component: 'server' });
 
 const VALID_STAGES = ['command', 'step', 'build'];
 
-const collector = {
+const Collector = {
     deps: {
         fastify
     },
@@ -47,6 +47,6 @@ const collector = {
     }
 };
 
-Object.setPrototypeOf(collector, EventEmitter.prototype);
+Object.setPrototypeOf(Collector, EventEmitter.prototype);
 
-module.exports = collector;
+module.exports = Collector;
