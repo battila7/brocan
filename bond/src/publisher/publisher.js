@@ -15,7 +15,6 @@ const publisher = {
         const pattern = Object.assign({}, info, {
             topic: 'build',
             role: 'progress',
-            buildId: orchestrator.getBuildId(),
 
             pubsub$: true
         });

@@ -18,7 +18,7 @@ const orchestrator = {
     async performBuild() {
         logger.info('Starting next build process');
 
-        const buildContext = {};
+        const buildContext = Object.create(null);
 
         const buildPipelinePromise = this.buildPipeline(buildContext);
 
