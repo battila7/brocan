@@ -20,6 +20,12 @@ Promise.all([ collectorPromise, publisherPromise ])
     .then(function readyToGo() {
         return Orchestrator.setup();
     })
+    .catch(function setupFailed(err) {
+        logger.error('Could not start Bond because of an error during the setup phase');
+        logger.error(err);
+
+        throw err;
+    })
     .then(function start() {
         return Orchestrator.performBuild();
-    });
+    })

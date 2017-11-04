@@ -14,6 +14,9 @@ const Messaging = {
                 }
             });
         }.bind(this));
+    },
+    act() {
+        return Promise.resolve();
     }
 };
 

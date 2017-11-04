@@ -21,7 +21,7 @@ const config = convict({
         directory: {
             doc: 'The directory where the repositories will be cloned into.',
             format: String,
-            default: null
+            default: '/tmp'
         }
     }
 });
