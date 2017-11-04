@@ -13,7 +13,7 @@ const config = convict({
         host: {
             doc: 'The host of the Faktory instance which serves as a build queue.',
             format: String,
-            default: 'faktory',
+            default: 'localhost',
             env: 'FAKTORY_HOST'
         },
         port: {
@@ -27,7 +27,7 @@ const config = convict({
         uri: {
             doc: 'The URI of the NATS network.',
             format: String,
-            default: 'nats://nats:4222',
+            default: 'nats://localhost:4222',
             env: 'NATS_URI'
         }
     }
