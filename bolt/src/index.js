@@ -6,6 +6,7 @@ const env = require('@brocan/env').ensure([
     'BOLT_RUNNER_REPORTER_HOST'
 ]);
 
+const Sequ = require('@brocan/sequ');
 const brocanfile = require('@brocan/brocanfile');
 
 const logger = require('./logger');
@@ -19,7 +20,7 @@ const [ brocanFilePath, buildId, reporterHost ] = env.getAll(
 );
 
 const reporter = Object.create(Reporter);
-reporter.Reporter(reporterHost, buildId);
+reporter.Reporter(reporterHost, buildId, Sequ());
 
 brocanfile.read(brocanFilePath)
     .then(function executeBrocanFile(brocanFile) {

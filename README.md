@@ -19,6 +19,7 @@ The intended features of Brocan are the following:
 ### Apps/Services
 
   * [Bolt](bolt) - Command line build runner tool.
+  * [Bond](bond) - Agent. Build agent.
 
 ### Libraries
 

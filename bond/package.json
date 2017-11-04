@@ -1,0 +1,28 @@
+{
+  "name": "bond",
+  "version": "1.0.0",
+  "description": "The build agent of Brocan CI.",
+  "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/battila7/brocan",
+    "type": "git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Attila Bagossy",
+  "license": "MIT",
+  "dependencies": {
+    "@brocan/brocanfile": "^1.0.0",
+    "convict": "^4.0.1",
+    "dockerode": "^2.5.3",
+    "faktory-client": "^0.2.2",
+    "fastify": "^0.30.3",
+    "mkdirp": "^0.5.1",
+    "nats": "^0.7.24",
+    "nats-hemera": "^2.3.2",
+    "nodegit": "^0.20.3",
+    "pino": "^4.8.1",
+    "rimraf": "^2.6.2"
+  }
+}

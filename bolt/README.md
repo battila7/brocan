@@ -19,7 +19,9 @@ bolt
 
 ## Project Dependencies
 
+  * brocanfile
   * env
+  * sequ
 
 ## Expected environment variables
 
