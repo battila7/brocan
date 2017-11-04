@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Allows the injection of manually created builds to ease the testing of Brocan.",
   "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/battila7/brocan/tree/master/doubles/build-inject",
+    "type": "git"
+  },
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
