@@ -1,4 +1,6 @@
-# env
+# [DEPRECATED] env
+
+**Instead of using env, the usage of convict is recommended!**
 
 A simple wrapper around `node-config` which provides a way to ensure the presence of required properties.
 

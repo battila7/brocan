@@ -1,10 +1,5 @@
 #!/usr/bin/env node
-
-const env = require('@brocan/env').ensure([
-    'BOLT_RUNNER_BROCANFILE_PATH',
-    'BOLT_RUNNER_BUILD_ID',
-    'BOLT_RUNNER_REPORTER_HOST'
-]);
+const config = require('./config');
 
 const Sequ = require('@brocan/sequ');
 const brocanfile = require('@brocan/brocanfile');
@@ -13,11 +8,11 @@ const logger = require('./logger');
 const Reporter = require('./reporter');
 const Executor = require('./executor');
 
-const [ brocanFilePath, buildId, reporterHost ] = env.getAll(
-    'BOLT_RUNNER_BROCANFILE_PATH',
-    'BOLT_RUNNER_BUILD_ID',
-    'BOLT_RUNNER_REPORTER_HOST'
-);
+const [ brocanFilePath, buildId, reporterHost ] = [
+    'brocanFilePath',
+    'buildId',
+    'reporterHost'
+].map(prop => config.get(prop));
 
 const reporter = Object.create(Reporter);
 reporter.Reporter(reporterHost, buildId, Sequ());

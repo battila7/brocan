@@ -20,18 +20,11 @@ bolt
 ## Project Dependencies
 
   * brocanfile
-  * env
   * sequ
 
-## Expected environment variables
+## Expected configuration and environment variables
 
-Instead of relying on command line parameters, Bolt expects some environment variables to be present when being run:
-
-  * `BOLT_RUNNER_BROCANFILE_PATH` - Relative path to the brocanfile to be executed.
-  * `BOLT_RUNNER_BUILD_ID` - An arbitrary identifier of the current build.
-  * `BOLT_RUNNER_REPORTER_HOST` - The host Bolt will report to.
-
-These can also be set in configuration files in a `node-config` compatible way.
+Please see the schema in [src/config.js](src/config.js) for documentation and default values.
 
 ## Build execution
 

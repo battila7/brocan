@@ -17,8 +17,8 @@
   "license": "MIT",
   "dependencies": {
     "@brocan/brocanfile": "^1.0.0",
-    "@brocan/env": "^1.2.0",
     "@brocan/sequ": "^1.0.0",
+    "convict": "^4.0.1",
     "got": "^7.1.0",
     "winston": "^3.0.0-rc1"
   }
