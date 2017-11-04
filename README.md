@@ -13,6 +13,14 @@ The intended features of Brocan are the following:
   * Custom environment variable passing.
     * Allows repository owners to pass environment variables to the build context.
 
+## Project Structure
+
+  * [deployment](deployment) - Deployment scripts for various configurations and environments.
+  * [docs](docs) - Documentation for processes, architecture and alike.
+  * [doubles](doubles) - Test doubles used to mock/fake/stub parts of the system.
+  * [lessons-learned](lessons-learned) - Blog-like posts concluding the experience gained.
+
+Other folders either contain a library or a service.
 
 ## Components
 
