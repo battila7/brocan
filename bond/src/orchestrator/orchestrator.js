@@ -1,5 +1,6 @@
 const path = require('path');
 const env = require('@brocan/env');
+const publisher = require('../publisher/publisher');
 const queue = require('./build-queue');
 const logger = require('../logger').child({ component: 'orchestrator' });
 const steps = require('./steps/steps');
@@ -8,7 +9,7 @@ const cloneDirectory = env.get('clone.directory');
 
 const orchestrator = {
     deps: {
-        queue, steps
+        publisher, queue, steps
     },
 
     setup() {
@@ -22,7 +23,11 @@ const orchestrator = {
         const buildPipelinePromise = this.buildPipeline(buildContext);
 
         const timeoutPromise = new Promise((resolve, reject) => {
-            setTimeout(() => reject('The build has timed out!'), 120000);
+            const callback = () => {
+                reject('The build has timed out!');
+            };
+
+            setTimeout(callback, 120000);
         });
 
         try {
@@ -56,6 +61,7 @@ const orchestrator = {
             this.removeDirectory,
             this.stopContainer,
             this.removeContainer,
+            this.unsetBuildId
         ], context);
     },
     reschedule() {
@@ -70,6 +76,8 @@ const orchestrator = {
         if (!context.build) {
             throw new Error('There is no build to execute.');
         }
+
+        this.buildId = context.build.buildId;
 
         logger.info('Executing build with id "%s"', context.build.buildId);
         logger.debug(context.build);
@@ -111,13 +119,23 @@ const orchestrator = {
             return Promise.resolve();
         }
     },
+    unsetBuildId() {
+        logger.info('Releasing build with id "%s"', this.buildId);
+
+        this.buildId = undefined;
+    },
+    async publishFailure() {
+        logger.info('Publishing timeout update');
+
+        this.deps.publisher.publish({
+            status: 'failed',
+            reason: 'timeout'
+        });
+    },
 
     getBuildId() {
-      return buildId;  
+      return this.buildId;  
     },
-    updateBuildStatus() {
-        
-    }
 };
 
 module.exports = orchestrator;
