@@ -4,8 +4,6 @@ services:
   # Brocan services
   bond: 
     build: ../../bond
-    environment:
-      FAKTORY_URL: 'faktory:7419'
     depends_on:
       - faktory
 

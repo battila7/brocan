@@ -25,11 +25,17 @@ const config = convict({
         }
     },
     faktory: {
-        url: {
-            doc: 'The URL to the Faktory instance which serves as a build queue.',
+        host: {
+            doc: 'The host of the Faktory instance which serves as a build queue.',
             format: String,
-            default: 'localhost:7419',
-            env: 'FAKTORY_URL'
+            default: 'faktory',
+            env: 'FAKTORY_HOST'
+        },
+        port: {
+            doc: 'The port of the Faktory instance which serves as a build queue.',
+            format: 'port',
+            default: '7419',
+            env: 'FAKTORY_PORT'
         }
     }
 });
