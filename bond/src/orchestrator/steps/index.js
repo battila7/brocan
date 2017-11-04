@@ -7,5 +7,6 @@ module.exports = {
     createContainer: require('./create-container'),
     runContainer: require('./run-container'),
     stopContainer: require('./stop-container'),
-    removeContainer: require('./remove-container')
+    removeContainer: require('./remove-container'),
+    removeFromQueue: require('./remove-from-queue')
 };

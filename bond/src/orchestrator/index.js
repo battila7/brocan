@@ -65,6 +65,7 @@ const Orchestrator = {
     cleanUpPipeline(context) {
         return this.toSeq([
             this.publishFailure,
+            this.removeFromQueue,
             this.removeDirectory,
             this.stopContainer,
             this.removeContainer,
@@ -101,7 +102,7 @@ const Orchestrator = {
         context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
     },
     async createContainer(context) {
-        context.container = await this.deps.steps.createContainer.create(context.base, context.build.buildId);
+        context.container = await this.deps.steps.createContainer.create(context.base, context.build.buildId, cloneDirectory);
     },
     async runContainer(context) {
         await this.deps.steps.runContainer.run(context.container);
@@ -114,6 +115,13 @@ const Orchestrator = {
             logger.info('Publishing timeout update');
             
             this.updateBuildStatus(this.buildId, 'build', { status: 'failure', reason: 'timeout' });
+        }
+    },
+    removeFromQueue(context) {
+        if (context.build) {
+            return this.deps.steps.removeFromQueue.remove(context.build.jobId);
+        } else {
+            return Promise.resolve();
         }
     },
     removeDirectory() {

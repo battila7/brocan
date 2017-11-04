@@ -10,18 +10,32 @@ const config = convict({
         default: 'production',
         env: 'NODE_ENV'
     },
+    network: {
+        doc: 'The name of the network the containers run in.',
+        format: String,
+        default: 'network',
+        env: 'BUILD_CONTAINER_NETWORK'
+    },
     collector: {
+        host: {
+            doc: 'The host of the build report collector which will be passed to the build runner.',
+            format: String,
+            default: 'http://bond',
+            env: 'COLLECTOR_HOST'
+        },
         port: {
             doc: 'The port, the build report collector will listen on.',
             format: 'port',
-            default: '3000'
+            default: '3000',
+            env: 'COLLECTOR_PORT'
         }
     },
     clone: {
         directory: {
             doc: 'The directory where the repositories will be cloned into.',
             format: String,
-            default: '/tmp'
+            default: '/tmp/brocan/clone',
+            env: 'CLONE_DIRECTORY'
         }
     },
     faktory: {

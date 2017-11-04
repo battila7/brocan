@@ -22,10 +22,10 @@ const config = convict({
         default: null,
         env: 'BOLT_RUNNER_BUILD_ID'
     },
-    reporterHost: {
-        doc: 'The host Bolt will report to.',
+    reporterUri: {
+        doc: 'The URI Bolt will report to.',
         format: String,
-        default: 'localhost:3000',
+        default: 'bond:3000',
         env: 'BOLT_RUNNER_REPORTER_HOST'
     }
 });

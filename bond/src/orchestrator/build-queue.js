@@ -10,14 +10,18 @@ const Queue = {
         client
     },
 
-    setup() {
-        return client.connect();
+    async setup() {
+        await this.deps.client.connect();
     },
-    next() {
-        return client.fetch([ 'default', 'critical' ]);
+    async next() {
+        await this.deps.client.connect();
+
+        return this.deps.client.fetch('default');
     },
-    done(jobId) {
-        return client.ack(jobId);
+    async done(jobId) {
+        await this.deps.client.connect();
+
+        return this.deps.client.ack(jobId)
     }
 }
 
