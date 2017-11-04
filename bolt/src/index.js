@@ -8,14 +8,14 @@ const logger = require('./logger');
 const Reporter = require('./reporter');
 const Executor = require('./executor');
 
-const [ brocanFilePath, buildId, reporterHost ] = [
+const [ brocanFilePath, buildId, reporterUri ] = [
     'brocanFilePath',
     'buildId',
-    'reporterHost'
+    'reporterUri'
 ].map(prop => config.get(prop));
 
 const reporter = Object.create(Reporter);
-reporter.Reporter(reporterHost, buildId, Sequ());
+reporter.Reporter(reporterUri, buildId, Sequ());
 
 brocanfile.read(brocanFilePath)
     .then(function executeBrocanFile(brocanFile) {

@@ -4,9 +4,13 @@ services:
   # Brocan services
   bond: 
     build: ../../bond
+    environment:
+      - BUILD_CONTAINER_NETWORK=brocan-development-network
     depends_on:
       - faktory
       - nats
+    ports:
+      - '3000:3000'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/brocan:/tmp/brocan
@@ -25,4 +29,8 @@ services:
       - '6222:6222'
       - '8222:8222'
 
+networks:
+  default:
+    external:
+      name: 'brocan-development-network'
     
