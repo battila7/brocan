@@ -23,6 +23,14 @@ const config = convict({
             format: String,
             default: '/tmp'
         }
+    },
+    faktory: {
+        url: {
+            doc: 'The URL to the Faktory instance which serves as a build queue.',
+            format: String,
+            default: 'localhost:7419',
+            env: 'FAKTORY_URL'
+        }
     }
 });
 

@@ -4,3 +4,16 @@ services:
   # Brocan services
   bond: 
     build: ../../bond
+    environment:
+      FAKTORY_URL: 'faktory:7419'
+    depends_on:
+      - faktory
+
+  # Third-party services
+  faktory:
+    image: contribsys/faktory:0.5.0
+    entrypoint: ./faktory -b 0.0.0.0:7419 -no-tls
+    ports:
+      - '7419:7419'
+      - '7420:7420'
+    
