@@ -6,12 +6,12 @@ const GitHub = {
             method: 'POST',
             path: '/',
             handler(request, reply) {
-                /*reply.act({
+                reply.act({
                     topic: 'build',
                     role: 'transform',
                     origin: 'github',
                     payload: request.payload
-                });*/
+                });
 
                 request.logger.debug('Received GitHub build request', request.payload);
 
@@ -41,7 +41,7 @@ const GitHub = {
 
 GitHub.register.attributes = {
     pkg: require('../package.json'),
-    dependencies: [ 'hapi-pino' ]
+    dependencies: [ 'hapi-pino', 'hapi-hemera' ]
 };
 
 module.exports = GitHub;

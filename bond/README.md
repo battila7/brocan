@@ -27,15 +27,17 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
 
 #### HTTP 
 
-##### `/:buildId/report/:stage`
+##### **POST** `/:buildId/report/:stage`
 
-   * **URI Params**:
-     * `buildId` - The ID of the currently executing build. An arbitrary string.
-     * `:stage` - The build stage the report belongs belongs to. Can be any of these three values: `command`, `step`, `build`.
-
-   * **Payload**: Please refer to the outbound communication of Bolt.
-   * **Response**: Immediate with empty payload and `200 OK` status code.
-   * **Description**: This is the endpoint Bolt is intended to use when reporting the build status.
+  * **Request**
+    * URI Params
+      * `buildId` - The ID of the currently executing build. An arbitrary string.
+      * `:stage` - The build stage the report belongs belongs to. Can be any of these three values: `command`, `step`, `build`.
+    * Payload: Please refer to the outbound communication of Bolt.
+  * **Response**
+    * Immediate with empty payload and `200 OK` status code.
+  * **Description**
+    * This is the endpoint Bolt is intended to use when reporting the build status.
 
 ### Outbound
 
