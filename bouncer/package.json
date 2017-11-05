@@ -1,0 +1,16 @@
+{
+  "name": "@brocan/bouncer",
+  "version": "1.0.0",
+  "description": "Gateway to the Brocan Build System.",
+  "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/battila7/brocan/tree/master/bouncer",
+    "type": "git"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Attila Bagossy",
+  "license": "MIT"
+}
