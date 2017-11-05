@@ -8,10 +8,21 @@ server.connection({
     port: config.get('port')
 });
 
+server.register([{
+    register: require('hapi-pino')
+}, {
+    register: require('@brocan/bouncer-github'),
+    routes: {
+        prefix: '/github'
+    }
+}], function registerCallback(err) {
+    if (err) {
+        throw err;
+    }
+});
+
 server.start(function startCallback(err) {
     if (err) {
         throw err;
     }
-
-    console.log('Server started!');
 });
