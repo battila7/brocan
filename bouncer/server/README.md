@@ -6,7 +6,7 @@ Keep in mind that transforming the webhook payloads into the common Brocan forma
 
 ## Project Dependencies
 
-  * [Bouncer GitHub Plugin](../github) - All routes prefixed by `/github`.
+  * [Bouncer GitHub Plugin](../github) - All routes prefixed with `/github`.
 
 ## Environment Dependencies
 
