@@ -94,7 +94,7 @@ const Orchestrator = {
         return this.deps.steps.createDirectory.create(cloneDirectory);
     },
     cloneRepository(context) {
-        return this.deps.steps.cloneRepository.clone(context.build.repoUri, context.build.branch, cloneDirectory);
+        return this.deps.steps.cloneRepository.clone(context.build.repoUri, context.build.commitHash, cloneDirectory);
     },
     async readBaseImage(context) {
         const filename = path.join(cloneDirectory, 'brocan.hjson');
