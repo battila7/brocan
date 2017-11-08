@@ -24,7 +24,7 @@ const createContainer = {
 
         const container = await docker.createContainer({
             Image: base,
-            Cmd: ['sh', '-c', `node -v && npm i @brocan/bolt -g && cd ${repoDir} && ls -la && bolt`],
+            Cmd: ['sh', '-c', `git --version && node -v && npm i @brocan/bolt -g && cd ${repoDir} && ls -la && cat brocan.hjson && bolt`],
             Env,
             Volumes: {
                 '/tmp/brocan': {}
