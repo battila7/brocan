@@ -10,6 +10,7 @@ Bond is the build agent of Brocan CI.
 
   * Faktory
   * NATS (Hemera)
+  * Git must be installed in the container/machine running Bond
 
 ## Expected configuration and environment variables
 
