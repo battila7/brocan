@@ -9,7 +9,7 @@ Using BuildInject, only a Bond instance, a Faktory queue and NATS are needed for
 BuildInject can be started using the `npm start` command. Once it's started up, single-line JSON objects can be entered. For example:
 
 ~~~~JSON
-{ "buildId": "id", "repoUri": "https://github.com/battila7/brocan-example", "branch": "master" }
+{ "buildId": "id", "commitHash": "28071010f8c55007c6753c5bcbbcc8e6a481edf2", "repoUri": "https://github.com/battila7/brocan-example" }
 ~~~~
 
 BI will push `id` into the Faktory queue and will respond to metada queries having `buildId` equal to `id` with the metadata specified in the JSON.

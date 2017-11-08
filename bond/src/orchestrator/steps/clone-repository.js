@@ -1,17 +1,24 @@
-const Git = require('nodegit');
+const { spawnSync } = require('child_process');
 
 const logger = require('../../logger').child({ component: 'cloneRepository' });
 
 const cloneRepository = {
     deps: {
-        Git
+        spawnSync
     },
 
-    clone(repoUri, branch, cloneDir) {
-        logger.info('Cloning git repository from "%s" branch "%s" to "%s"', repoUri, branch, cloneDir);
+    async clone(repoUri, commitHash, cloneDir) {
+        logger.info('Cloning git repository from "%s" to "%s"', repoUri, cloneDir);
 
-        return Git.Clone(repoUri, cloneDir, {
-            checkoutBranch: branch,
+        await this.deps.spawnSync('git', ['clone', repoUri, cloneDir], {
+            stdio: 'ignore'
+        });
+
+        logger.info('Checking out commit "%s"', commitHash);
+
+        await this.deps.spawnSync('git', ['checkout', commitHash], {
+            cwd: cloneDir,
+            stdio: 'ignore'
         });
     }
 };
