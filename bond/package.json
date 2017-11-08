@@ -1,6 +1,6 @@
 {
   "name": "@brocan/bond",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "The build agent of Brocan CI.",
   "main": "src/index.js",
   "repository": {
