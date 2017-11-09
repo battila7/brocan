@@ -14,12 +14,11 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/bouncer-github": "^1.0.0",
+    "@brocan/bouncer-github": "^1.1.0",
     "convict": "^4.0.1",
     "hapi": "^16.6.1",
-    "hapi-hemera": "^1.0.1",
     "hapi-pino": "^2.0.1",
     "nats": "^0.7.24",
-    "nats-hemera": "^2.4.0"
+    "nats-hemera": "^2.4.1"
   }
 }

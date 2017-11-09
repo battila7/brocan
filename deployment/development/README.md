@@ -1,0 +1,7 @@
+# Deployment > Development
+
+Deployment scripts to spin up various parts of the system. The script name indicates the comprising components. The following configurations are available:
+
+ * [bond-faktory-nats.yml](bond-faktory-nats.yml) - Starts a single Bond instance along with a Faktory queue and NATS. Can be used to test Bond using BuildInject.
+ * [bouncer-nats.yml](bouncer-nats.yml) - Only the Bouncer Gateway and NATS are started. Useful for WebHook testing.
+ 

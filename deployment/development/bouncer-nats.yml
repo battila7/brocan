@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  # Brocan services
+  bouncer: 
+    build: ../../bouncer/server
+    depends_on:
+      - nats
+    ports:
+      - '8080:8080'
+
+  # Third-party services
+  nats:
+    image: nats
+    ports:
+      - '4222:4222'
+      - '6222:6222'
+      - '8222:8222'
+    

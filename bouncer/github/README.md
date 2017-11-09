@@ -5,7 +5,7 @@ Plugin for Bouncer that can accepts requests coming from GitHub WebHooks. Only `
 ## Hapi Plugin Dependencies
 
   * [hapi-pino](https://github.com/pinojs/hapi-pino/tree/v2.x.x)
-  * [hapi-hemera](https://github.com/hemerajs/hapi-hemera)
+  * [bouncer-messaging](../server/src/messaging/index.js)
 
 ## Communication
 

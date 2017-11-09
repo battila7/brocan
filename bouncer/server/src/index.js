@@ -11,7 +11,12 @@ server.connection({
 server.register([{
     register: require('hapi-pino')
 }, {
-    register: require('@brocan/bouncer-github'),
+    register: require('./messaging'),
+    options: {
+        nats: config.get('nats.uri')
+    }
+}, {
+    register: require('./github'),
     routes: {
         prefix: '/github'
     }
@@ -19,10 +24,10 @@ server.register([{
     if (err) {
         throw err;
     }
-});
 
-server.start(function startCallback(err) {
-    if (err) {
-        throw err;
-    }
+    server.start(function startCallback(err) {
+        if (err) {
+            throw err;
+        }
+    });
 });
