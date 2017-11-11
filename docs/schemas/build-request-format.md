@@ -37,7 +37,5 @@ As a clarification: BBRF contains a subset of data related to builds. It only co
 
 Here you can find additional information on specific fields.
 
-  * `buildId`
-    * This identifier is used throughout the entire Brocan system to identify builds. Therefore it must be unique. However, it should not be completely artificial but assembled from the original request data. That way it makes sense for humans too and can be included in nice URIs.
   * `requestHash`
     * A hash created from the contents of the original request. It's a good idea to persist the original request for debugging purposes. However as it can be huge, it makes no sense to include it in the BBRF. Therefore only a hash is included which can be used to query for the original request when necessary.
