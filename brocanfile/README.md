@@ -2,7 +2,7 @@
 
 Brocanfile parser and validator for Node.
 
-Please see [REF.md](REF.md) for the brocanfile reference.
+Please see [brocanfile.md](../docs/schemas/brocanfile.md) for the brocanfile reference.
 
 ## Usage
 
