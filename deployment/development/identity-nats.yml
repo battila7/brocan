@@ -3,7 +3,7 @@ version: '3'
 services:
   # Brocan services
   identity: 
-    build: ../../identity
+    build: ../../components/services/identity
     depends_on:
       - nats
 

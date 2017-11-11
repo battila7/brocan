@@ -3,7 +3,7 @@ version: '3'
 services:
   # Brocan services
   bouncer: 
-    build: ../../bouncer/server
+    build: ../../components/services/bouncer/server
     depends_on:
       - nats
     ports:

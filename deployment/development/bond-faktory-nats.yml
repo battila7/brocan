@@ -3,7 +3,7 @@ version: '3'
 services:
   # Brocan services
   bond: 
-    build: ../../bond
+    build: ../../components/services/bond
     environment:
       - BUILD_CONTAINER_NETWORK=brocan-development-network
     depends_on:
