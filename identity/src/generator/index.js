@@ -10,12 +10,12 @@ const Generator = {
     generateFrom(buildRequest) {
         const hash = this.deps.createHash('sha256');
 
-        [ buildRequest.timestamp,
+        [ '' + buildRequest.timestamp,
           buildRequest.repository.uri,
           buildRequest.commit.hash ]
-          .forEach(part => hash.updated(part));
+          .forEach(part => hash.update(part));
 
-        return hash.digest();
+        return hash.digest().toString('hex');
     }
 };
 
