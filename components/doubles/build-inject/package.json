@@ -1,10 +1,10 @@
 {
   "name": "@brocan/build-inject",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Allows the injection of manually created builds to ease the testing of Brocan.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/doubles/build-inject",
+    "url": "https://github.com/battila7/brocan/tree/master/components/doubles/build-inject",
     "type": "git"
   },
   "scripts": {

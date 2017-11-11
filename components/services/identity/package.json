@@ -1,10 +1,10 @@
 {
   "name": "@brocan/identity",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build identifier generator for brocan builds.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/identity",
+    "url": "https://github.com/battila7/brocan/tree/master/components/services/identity",
     "type": "git"
   },
   "scripts": {

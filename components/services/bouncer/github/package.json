@@ -1,10 +1,10 @@
 {
   "name": "@brocan/bouncer-github",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "GitHub plugin for the Bouncer gateway.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/bouncer/github",
+    "url": "https://github.com/battila7/brocan/tree/master/components/services/bouncer/github",
     "type": "git"
   },
   "scripts": {

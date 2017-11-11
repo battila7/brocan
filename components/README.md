@@ -11,7 +11,7 @@ Applications and services that are strictly the part of the Brocan.
     * [GitHub](services/bouncer/github) - GitHub WebHook plugin for Bouncer.
   * [Identity](services/identity) - Build identifier generator.
 
-## Dobules
+## Doubles
 
 Test doubles used to mock/fake/stub parts of the system.
 

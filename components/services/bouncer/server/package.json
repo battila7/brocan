@@ -1,10 +1,10 @@
 {
   "name": "@brocan/bouncer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Gateway to the Brocan Build System.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/bouncer",
+    "url": "https://github.com/battila7/brocan/tree/master/components/services/bouncer",
     "type": "git"
   },
   "scripts": {

@@ -1,10 +1,10 @@
 {
   "name": "@brocan/brocanfile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Brocanfile parser and validator.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/brocanfile",
+    "url": "https://github.com/battila7/brocan/tree/master/components/libraries/brocanfile",
     "type": "git"
   },
   "scripts": {
