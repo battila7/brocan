@@ -38,3 +38,7 @@ Other folders either contain a library or a service.
   * [brocanfile](brocanfile) - Node brocanfile parser and validator.
   * [env](env) - **[DEPRECATED - Use convict instead]** Environment configuration libary for Node based on [node-config](https://github.com/lorenwest/node-config).
   * [sequ](sequ) - Node promise queue which ensures the sequential execution of promises.
+
+### Utilities
+
+  * [Whisperer](whisperer) - Send arbitrary NATS-Hemera messages.

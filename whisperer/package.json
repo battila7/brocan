@@ -1,0 +1,21 @@
+{
+  "name": "@brocan/whisperer",
+  "version": "1.0.0",
+  "description": "Send arbitrary NATS-Hemera messages.",
+  "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/battila7/brocan/tree/master/bond",
+    "type": "git"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Attila Bagossy",
+  "license": "MIT",
+  "dependencies": {
+    "convict": "^4.0.1",
+    "nats": "^0.7.24",
+    "nats-hemera": "^2.4.1"
+  }
+}

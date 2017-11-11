@@ -1,0 +1,13 @@
+{
+    "topic": "build",
+    "role": "identifier",
+    "buildRequest": {
+        "timestamp": 123123,
+        "repository": {
+            "uri": "abcd"
+        },
+        "commit": {
+            "hash": "acbbd"
+        }
+    }
+}
