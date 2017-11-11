@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  # Brocan services
+  identity: 
+    build: ../../identity
+    depends_on:
+      - nats
+
+  # Third-party services
+  nats:
+    image: nats
+    ports:
+      - '4222:4222'
+      - '6222:6222'
+      - '8222:8222'
+    
