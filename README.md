@@ -31,6 +31,7 @@ Other folders either contain a library or a service.
   * [Bouncer](bouncer) - WebHook Gateway.
     * [Server](bouncer/server) - The customisable gateway component of Bouncer.
     * [GitHub](bouncer/github) - GitHub WebHook plugin for Bouncer.
+  * [Identity](identity) - Build identifier generator.
 
 ### Libraries
 
