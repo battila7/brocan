@@ -1,0 +1,16 @@
+{
+  "name": "@brocan/origins",
+  "version": "1.0.0",
+  "description": "Service that can store and retrieve original WebHook payloads.",
+  "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/battila7/brocan/tree/master/components/services/origins",
+    "type": "git"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Attila Bagossy",
+  "license": "MIT"
+}
