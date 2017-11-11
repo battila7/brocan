@@ -1,0 +1,7 @@
+# Schemas
+
+This folder contains explanations for data formats and schemas used throughout Brocan.
+
+## Available schemas/formats
+
+  * [Brocan Build Request Format](build-request-format.md) - The Brocan Build Request Format is the common format used in Brocan to request a new build. 
