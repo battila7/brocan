@@ -11,6 +11,8 @@ Applications and services that are strictly the part of the Brocan.
     * [GitHub](services/bouncer/github) - GitHub WebHook plugin for Bouncer.
   * [Identity](services/identity) - Build identifier generator.
   * [Origins](services/origins) - WebHook payload storage service.
+  * [Transformer](services/transformer) - WebHook to BBRF transformers.
+    * [GitHub](services/transformer/github) - GitHub WebHook to BBRF transformer.
 
 ## Doubles
 
