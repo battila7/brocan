@@ -10,6 +10,7 @@ Applications and services that are strictly the part of the Brocan.
     * [Server](services/bouncer/server) - The customisable gateway component of Bouncer.
     * [GitHub](services/bouncer/github) - GitHub WebHook plugin for Bouncer.
   * [Identity](services/identity) - Build identifier generator.
+  * [Origins](services/origins) - WebHook payload storage service.
 
 ## Doubles
 

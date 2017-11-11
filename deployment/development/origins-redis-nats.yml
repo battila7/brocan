@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  # Brocan services
+  origins: 
+    build: ../../components/services/origins
+    depends_on:
+      - nats
+      - redis
+
+  # Third-party services
+  nats:
+    image: nats
+    ports:
+      - '4222:4222'
+      - '6222:6222'
+      - '8222:8222'
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
