@@ -1,10 +1,10 @@
 {
   "name": "@brocan/bond",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "The build agent of Brocan CI.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/bond",
+    "url": "https://github.com/battila7/brocan/tree/master/components/services/bond",
     "type": "git"
   },
   "scripts": {

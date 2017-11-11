@@ -1,10 +1,10 @@
 {
-  "name": "@brocan/bouncer",
-  "version": "1.1.0",
-  "description": "Gateway to the Brocan Build System.",
+  "name": "@brocan/identity",
+  "version": "1.0.1",
+  "description": "Build identifier generator for brocan builds.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/bouncer",
+    "url": "https://github.com/battila7/brocan/tree/master/components/services/identity",
     "type": "git"
   },
   "scripts": {
@@ -14,11 +14,9 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/bouncer-github": "^1.2.0",
     "convict": "^4.0.1",
-    "hapi": "^16.6.1",
-    "hapi-pino": "^2.0.1",
     "nats": "^0.7.24",
-    "nats-hemera": "^2.4.1"
+    "nats-hemera": "^2.4.1",
+    "pino": "^4.10.0"
   }
 }

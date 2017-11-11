@@ -15,30 +15,6 @@ The intended features of Brocan are the following:
 
 ## Project Structure
 
+  * [components](components) - The components that make up Brocan.
   * [deployment](deployment) - Deployment scripts for various configurations and environments.
   * [docs](docs) - Documentation for processes, architecture and alike.
-  * [doubles](doubles) - Test doubles used to mock/fake/stub parts of the system.
-  * [lessons-learned](lessons-learned) - Blog-like posts concluding the experience gained.
-
-Other folders either contain a library or a service.
-
-## Components
-
-### Apps/Services
-
-  * [Bolt](bolt) - Command line build runner tool.
-  * [Bond](bond) - Agent. Build agent.
-  * [Bouncer](bouncer) - WebHook Gateway.
-    * [Server](bouncer/server) - The customisable gateway component of Bouncer.
-    * [GitHub](bouncer/github) - GitHub WebHook plugin for Bouncer.
-  * [Identity](identity) - Build identifier generator.
-
-### Libraries
-
-  * [brocanfile](brocanfile) - Node brocanfile parser and validator.
-  * [env](env) - **[DEPRECATED - Use convict instead]** Environment configuration libary for Node based on [node-config](https://github.com/lorenwest/node-config).
-  * [sequ](sequ) - Node promise queue which ensures the sequential execution of promises.
-
-### Utilities
-
-  * [Whisperer](whisperer) - Send arbitrary NATS-Hemera messages.

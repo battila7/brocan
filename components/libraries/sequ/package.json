@@ -1,10 +1,10 @@
 {
   "name": "@brocan/sequ",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sequ is a basic queue which will execute promise-providing functions sequentially, only one-at-a-time.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/sequ",
+    "url": "https://github.com/battila7/brocan/tree/master/components/libraries/sequ",
     "type": "git"
   },
   "scripts": {

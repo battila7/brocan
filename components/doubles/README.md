@@ -7,7 +7,7 @@ For every double, two lists are provided:
   * **Tests**: Services/components that can be exercised through the double.
   * **Needs**: Services/components needed by the double to work correctly.
 
-## [BuildInject](BuildInject)
+## [BuildInject](build-inject)
 
   * **Tests**
     * Bond
