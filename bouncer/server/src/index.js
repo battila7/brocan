@@ -16,7 +16,7 @@ server.register([{
         nats: config.get('nats.uri')
     }
 }, {
-    register: require('./github'),
+    register: require('@brocan/bouncer-github'),
     routes: {
         prefix: '/github'
     }
