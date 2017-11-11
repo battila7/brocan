@@ -16,6 +16,14 @@ const config = convict({
             default: 'nats://nats:4222',
             env: 'NATS_URI'
         }
+    },
+    redis: {
+        uri: {
+            doc: 'The URI of the WebHook payload Redis instace.',
+            format: String,
+            default: 'redis://redis:6379',
+            env: 'REDIS_URI'
+        }
     }
 });
 

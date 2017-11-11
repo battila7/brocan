@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "Send arbitrary NATS-Hemera messages.",
   "main": "src/index.js",
+  "bin": {
+    "whisperer": "src/index.js"
+  },
   "repository": {
     "url": "https://github.com/battila7/brocan/tree/master/components/utilities/whisperer",
     "type": "git"

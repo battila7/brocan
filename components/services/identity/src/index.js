@@ -11,7 +11,7 @@ const Generator = require('./generator');
 
 const hemera = new Hemera(nats);
 
-hemera.ready(function hemeraRead() {
+hemera.ready(function hemeraReady() {
     hemera.add({
         topic: 'build',
         role: 'identifier'
