@@ -4,12 +4,12 @@ Fakes, mocks and stubs that can be used to ease the testing of smaller parts or 
 
 For every double, two lists are provided:
 
-  * **Test**: Services/components that can be exercised through the double.
+  * **Tests**: Services/components that can be exercised through the double.
   * **Needs**: Services/components needed by the double to work correctly.
 
 ## [BuildInject](BuildInject)
 
-  * **Test**
+  * **Tests**
     * Bond
     * Bolt
   * **Needs**
