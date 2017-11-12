@@ -12,8 +12,7 @@ const Identifier = {
 
         return new Promise((resolve, reject) => {
             this.deps.Messaging.act({
-                topic: 'build',
-                role: 'identifier',
+                topic: 'build.generateIdentifier',
                 buildRequest
             }, (err, response) => {
                 if (err) {

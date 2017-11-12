@@ -13,17 +13,18 @@ const hemera = new Hemera(nats);
 
 hemera.ready(function hemeraReady() {
     hemera.add({
-        topic: 'build',
-        role: 'identifier'
+        topic: 'build.generateIdentifier'
     }, async function identifierRequest(request) {
         logger.info('Generating new build identifier.');
 
         logger.debug(request.buildRequest);
 
-        const identifier = Generator.generateFrom(request.buildRequest);
+        const buildId = Generator.generateFrom(request.buildRequest);
 
-        logger.info('Generated new build identifier "%s".', identifier);
+        logger.info('Generated new build identifier "%s".', buildId);
 
-        return Promise.resolve(identifier);
+        return Promise.resolve({
+            buildId
+        });
     });
 });
