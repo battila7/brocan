@@ -21,7 +21,6 @@ As a clarification: BBRF contains a subset of data related to builds. It only co
 | `buildId`         | A unique identifier of the build. Must be URI friendly.             |
 | `commitCount`     | The number of commits pushed.                                       |
 | `timestamp`       | The time and date the build was requested at.                       |
-| `requestHash`     | Hash of the original request.                                       |
 | `author.name`     | The display name of the author.                                     |
 | `author.username` | The username of the author.                                         |
 | `author.uri`      | Link to the author in the repository provider.                      |
@@ -32,10 +31,3 @@ As a clarification: BBRF contains a subset of data related to builds. It only co
 | `commit.uri`      | Link to the most recently pushed commit in the repository provider. |
 | `repository.name` | The name of the updated repository.                                 |
 | `repository.uri`  | Link to the updated repository in the repository provider.          |
-
-### Detailed Notes
-
-Here you can find additional information on specific fields.
-
-  * `requestHash`
-    * A hash created from the contents of the original request. It's a good idea to persist the original request for debugging purposes. However as it can be huge, it makes no sense to include it in the BBRF. Therefore only a hash is included which can be used to query for the original request when necessary.
