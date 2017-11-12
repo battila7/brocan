@@ -20,7 +20,7 @@ const Identifier = {
                 } else {
                     logger.info('Received new buildId "%s"', response);
 
-                    resolve(response);
+                    resolve(response.buildId);
                 }
             });
         });
