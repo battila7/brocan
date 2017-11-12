@@ -47,7 +47,7 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
 
 ##### Build progress update
 
-  * **Topic** - `build.status`
+  * **Topic** - `build.info`
   * **Type** - `pub/sub`
   * **Payload**
     * `role` - `progress`

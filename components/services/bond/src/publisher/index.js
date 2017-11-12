@@ -12,7 +12,7 @@ const Publisher = {
     },
     publish(info) {
         const pattern = Object.assign({}, info, {
-            topic: 'build.status',
+            topic: 'build.info',
             role: 'progress',
             pubsub$: true
         });
