@@ -9,10 +9,9 @@ const GitHub = {
                 request.logger.debug('Received GitHub build request', request.payload);
 
                 reply.messaging.act({
-                    topic: 'build',
-                    role: 'transform',
+                    topic: 'build.transform',
                     origin: 'github',
-                    payload: request.payload,
+                    webhookRequest: request.payload,
                     
                     pubsub$: true
                 }, (err) => {
