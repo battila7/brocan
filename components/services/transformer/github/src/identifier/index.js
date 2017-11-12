@@ -18,7 +18,7 @@ const Identifier = {
                 if (err) {
                     reject(err);
                 } else {
-                    logger.info('Received new buildId "%s"', response);
+                    logger.info('Received new buildId "%s"', response.buildId);
 
                     resolve(response.buildId);
                 }
@@ -26,3 +26,5 @@ const Identifier = {
         });
     }
 };
+
+module.exports = Identifier;

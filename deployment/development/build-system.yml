@@ -43,6 +43,12 @@ services:
       - '7420:7420'
   nats:
     image: nats
+    entrypoint:
+      - '/gnatsd'
+      - -c
+      - 'gnatsd.conf'
+      - -m
+      - '8222'
     ports:
       - '4222:4222'
       - '6222:6222'

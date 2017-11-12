@@ -14,7 +14,7 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/bouncer-github": "^1.2.0",
+    "@brocan/bouncer-github": "^1.3.0",
     "convict": "^4.0.1",
     "hapi": "^16.6.1",
     "hapi-pino": "^2.0.1",

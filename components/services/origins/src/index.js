@@ -21,13 +21,13 @@ hemera.ready(function hemeraReady() {
 
         pubsub$: true
     }, async function store(request) {
-        logger.info('Storing request for buildId "%s"', request.buildReqest.buildId);
+        logger.info('Storing request for buildId "%s"', request.buildRequest.buildId);
 
-        logger.debug(request.buildReqest);
+        logger.debug(request.buildRequest);
 
-        storage.store(request.buildReqest.buildId, request.webhookRequest)
+        storage.store(request.buildRequest.buildId, request.webhookRequest)
             .catch(err => {
-                logger.warn('Could not add buildId "%s" to origin storage', request.buildReqest.buildId);
+                logger.warn('Could not add buildId "%s" to origin storage', request.buildRequest.buildId);
                 logger.warn(err);
             });
 
