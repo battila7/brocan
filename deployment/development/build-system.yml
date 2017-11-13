@@ -24,6 +24,11 @@ services:
     build: ../../components/services/identity
     depends_on:
       - nats
+  input: 
+    build: ../../components/services/input
+    depends_on:
+      - faktory
+      - nats
   origins: 
     build: ../../components/services/origins
     depends_on:
