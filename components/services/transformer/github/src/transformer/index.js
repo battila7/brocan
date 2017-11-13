@@ -1,6 +1,10 @@
 const Identifier = require('../identifier');
 
 const Transformer = {
+    deps: {
+        Identifier
+    },
+
     async transform(payload) {
         const result = {
             commitCount: payload.size,
@@ -25,7 +29,7 @@ const Transformer = {
             }
         };
 
-        const buildId = await Identifier.request(result);
+        const buildId = await this.deps.Identifier.request(result);
 
         result.buildId = buildId;
             

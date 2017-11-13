@@ -33,15 +33,14 @@ Plugin for Bouncer that can accepts requests coming from GitHub WebHooks. Only `
 
 ### Outbound
 
-#### NATS
+#### NATS - Act
 
 ##### Build transform request
 
-  * **Topic**: `build`
-  * **Role**: `transform`
-  * **Type**: `req/repl`
+  * **Topic**: `build.transform`
+  * **Type**: `pub/sub`
   * **Payload**:
-    * `origin` - Always `github`.
-    * `payload` - The payload received as part of the original GitHub request.
+    * `origin` - `github`.
+    * `webhookRequest` - The payload received as part of the original GitHub request.
   * **Description**
     * A build transformation and initiation request.

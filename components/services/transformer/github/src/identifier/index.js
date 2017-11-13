@@ -12,18 +12,19 @@ const Identifier = {
 
         return new Promise((resolve, reject) => {
             this.deps.Messaging.act({
-                topic: 'build',
-                role: 'identifier',
+                topic: 'build.generateIdentifier',
                 buildRequest
             }, (err, response) => {
                 if (err) {
                     reject(err);
                 } else {
-                    logger.info('Received new buildId "%s"', response);
+                    logger.info('Received new buildId "%s"', response.buildId);
 
-                    resolve(response);
+                    resolve(response.buildId);
                 }
             });
         });
     }
 };
+
+module.exports = Identifier;

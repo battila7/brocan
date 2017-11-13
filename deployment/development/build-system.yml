@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  # Brocan services
+  bond: 
+    build: ../../components/services/bond
+    environment:
+      - BUILD_CONTAINER_NETWORK=brocan-development-network
+    depends_on:
+      - faktory
+      - nats
+    ports:
+      - '3000:3000'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/brocan:/tmp/brocan
+  bouncer: 
+    build: ../../components/services/bouncer/server
+    depends_on:
+      - nats
+    ports:
+      - '8080:8080'
+  identity: 
+    build: ../../components/services/identity
+    depends_on:
+      - nats
+  origins: 
+    build: ../../components/services/origins
+    depends_on:
+      - nats
+      - redis
+  transformer-github:
+    build: ../../components/services/transformer/github
+    depends_on:
+      - nats
+
+  # Third-party services
+  faktory:
+    image: contribsys/faktory:0.5.0
+    entrypoint: ./faktory -b 0.0.0.0:7419 -no-tls
+    ports:
+      - '7419:7419'
+      - '7420:7420'
+  nats:
+    image: nats
+    entrypoint:
+      - '/gnatsd'
+      - -c
+      - 'gnatsd.conf'
+      - -m
+      - '8222'
+    ports:
+      - '4222:4222'
+      - '6222:6222'
+      - '8222:8222'
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
+
+networks:
+  default:
+    external:
+      name: 'brocan-development-network'
+    

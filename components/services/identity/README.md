@@ -14,15 +14,15 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
 
 ### Inbound
 
-#### NATS
+#### NATS - Add
 
 ##### Identifier generation request
 
-  * **Topic** - `build`
-  * **Role** - `identifier`
+  * **Topic** - `build.generateIdentifier`
+  * **Type** - `req/repl`
   * **Payload**
-    * `buildRequest` - An BBRF object without `buildId` field.
+    * `buildRequest` - A BBRF object without `buildId` field.
   * **Response**
-    * A single string, the generated `buildId`.
+    * `buildId` - The newly generated build identifier.
   * **Description**
     * Generates a new build identifier using the data in included in the BBRF object.

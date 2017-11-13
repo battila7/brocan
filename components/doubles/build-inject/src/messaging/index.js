@@ -9,8 +9,7 @@ const nats = require('nats').connect({
 const hemera = new Hemera(nats);
 
 hemera.add({
-    topic: 'build',
-    role: 'query'
+    topic: 'build.queryBuildData'
 }, async function queryHandler(req) {
     console.log(req);
 

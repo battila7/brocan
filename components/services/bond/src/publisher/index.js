@@ -12,13 +12,12 @@ const Publisher = {
     },
     publish(info) {
         const pattern = Object.assign({}, info, {
-            topic: 'build',
+            topic: 'build.info',
             role: 'progress',
-
             pubsub$: true
         });
 
-        logger.debug('Publishing build status', pattern);
+        logger.debug('Publishing build progress', pattern);
 
         this.deps.Messaging.act(pattern);
     }

@@ -16,16 +16,18 @@ const hemera = new Hemera(nats);
 
 hemera.ready(function hemeraReady() {
     hemera.add({
-        topic: 'build',
-        role: 'new'
+        topic: 'build.info',
+        role: 'new',
+
+        pubsub$: true
     }, async function store(request) {
-        logger.info('Storing request for buildId "%s"', request.build.buildId);
+        logger.info('Storing request for buildId "%s"', request.buildRequest.buildId);
 
-        logger.debug(request.build);
+        logger.debug(request.buildRequest);
 
-        storage.store(request.build.buildId, request.request)
+        storage.store(request.buildRequest.buildId, request.webhookRequest)
             .catch(err => {
-                logger.warn('Could not add buildId "%s" to origin storage', request.build.buildId);
+                logger.warn('Could not add buildId "%s" to origin storage', request.buildRequest.buildId);
                 logger.warn(err);
             });
 
@@ -33,8 +35,7 @@ hemera.ready(function hemeraReady() {
     });
 
     hemera.add({
-        topic: 'build',
-        role: 'retrieve-origin'
+        topic: 'build.retrieveOrigin',
     }, async function retrieve(request) {
         logger.info('Retrieving request for buildId "%s"', request.buildId);
 

@@ -19,17 +19,16 @@ const acquireBuild = {
 
         const buildId = job.args[0];
 
-        const metadata = await this.deps.Messaging.actAsync({
-            topic: 'build',
-            role: 'query',
+        const build = await this.deps.Messaging.actAsync({
+            topic: 'build.queryBuildData',
             buildId
         });
 
-        logger.info('Succesfully retrieved build metadata');
+        logger.info('Succesfully retrieved build data');
 
-        metadata.jobId = job.jid;
+        build.jobId = job.jid;
 
-        return metadata;
+        return build;
     }
 };
 
