@@ -20,6 +20,11 @@ services:
       - nats
     ports:
       - '8080:8080'
+  eternity: 
+    build: ../../components/services/eternity
+    depends_on:
+      - mongo
+      - nats
   identity: 
     build: ../../components/services/identity
     depends_on:
@@ -46,6 +51,10 @@ services:
     ports:
       - '7419:7419'
       - '7420:7420'
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
   nats:
     image: nats
     entrypoint:
