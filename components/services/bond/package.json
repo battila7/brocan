@@ -17,7 +17,7 @@
     "@brocan/brocanfile": "^1.0.0",
     "convict": "^4.0.1",
     "dockerode": "^2.5.3",
-    "faktory-client": "^0.2.2",
+    "faktory-client": "^0.4.3",
     "fastify": "^0.30.3",
     "mkdirp": "^0.5.1",
     "nats": "^0.7.24",
