@@ -24,6 +24,11 @@ services:
     build: ../../components/services/identity
     depends_on:
       - nats
+  input: 
+    build: ../../components/services/input
+    depends_on:
+      - faktory
+      - nats
   origins: 
     build: ../../components/services/origins
     depends_on:
@@ -36,8 +41,8 @@ services:
 
   # Third-party services
   faktory:
-    image: contribsys/faktory:0.5.0
-    entrypoint: ./faktory -b 0.0.0.0:7419 -no-tls
+    image: contribsys/faktory
+    entrypoint: ./faktory -b 0.0.0.0:7419
     ports:
       - '7419:7419'
       - '7420:7420'

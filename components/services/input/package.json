@@ -1,7 +1,7 @@
 {
-  "name": "@brocan/bond",
-  "version": "3.0.1",
-  "description": "The build agent of Brocan CI.",
+  "name": "@brocan/input",
+  "version": "1.0.0",
+  "description": "Build queue pusher service of the Brocan CI.",
   "main": "src/index.js",
   "repository": {
     "url": "https://github.com/battila7/brocan/tree/master/components/services/bond",
@@ -14,15 +14,10 @@
   "author": "Attila Bagossy",
   "license": "MIT",
   "dependencies": {
-    "@brocan/brocanfile": "^1.0.0",
     "convict": "^4.0.1",
-    "dockerode": "^2.5.3",
     "faktory-client": "^0.4.3",
-    "fastify": "^0.30.3",
-    "mkdirp": "^0.5.1",
     "nats": "^0.7.24",
-    "nats-hemera": "^2.3.2",
-    "pino": "^4.8.1",
-    "rimraf": "^2.6.2"
+    "nats-hemera": "^2.4.1",
+    "pino": "^4.10.0"
   }
 }

@@ -1,6 +1,8 @@
 const config = require('../config');
 
-const client = require('faktory-client').create({
+const FaktoryClient = require('faktory-client');
+
+const client = new FaktoryClient({
     host: config.get('faktory.host'),
     port: config.get('faktory.port')
 });
