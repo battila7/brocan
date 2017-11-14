@@ -6,7 +6,7 @@ const Transformer = {
             author: {
                 name: payload.pusher.name,
                 username: payload.sender.login,
-                uri: payload.sender.html_uri
+                uri: payload.sender.html_url
             },
             branch: {
                 name: this.branchName(payload),
@@ -19,7 +19,7 @@ const Transformer = {
             },
             repository: {
                 name: payload.repository.name,
-                uri: payload.repository.url
+                uri: payload.repository.html_url
             }
         };
     },
@@ -29,7 +29,7 @@ const Transformer = {
     branchUri(payload) {
         const branch = this.branchName(payload);
 
-        return `${payload.repository.html_uri}/tree/${branch}`;
+        return `${payload.repository.html_url}/tree/${branch}`;
     }
 };
 
