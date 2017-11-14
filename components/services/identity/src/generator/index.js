@@ -1,7 +1,5 @@
 const { createHash } = require('crypto');
 
-
-
 const Generator = {
     deps: {
         createHash

@@ -16,15 +16,15 @@ const Reporter = {
         got
     },
 
-    Reporter(host, buildId, sequ) {
-        this.mappings = this.assembleMappings(host, buildId);
+    Reporter(host, id, sequ) {
+        this.mappings = this.assembleMappings(host, id);
         this.sequ = sequ;
     },
-    assembleMappings(host, buildId) {
+    assembleMappings(host, id) {
         return {
-            buildReport: `${host}/${buildId}/report/build`,
-            stepReport: `${host}/${buildId}/report/step`,
-            commandReport: `${host}/${buildId}/report/command`,
+            buildReport: `${host}/${id}/report/build`,
+            stepReport: `${host}/${id}/report/step`,
+            commandReport: `${host}/${id}/report/command`,
         }
     },
     initWithBuildEmitter(emitter, brocanFile) {

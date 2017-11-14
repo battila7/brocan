@@ -20,7 +20,7 @@ const acquireBuild = {
         const id = job.args[0];
 
         const build = await this.deps.Messaging.actAsync({
-            topic: 'build.queryBuildData',
+            topic: 'build.queryBuild',
             id
         });
 

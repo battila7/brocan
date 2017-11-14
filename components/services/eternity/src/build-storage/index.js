@@ -9,11 +9,22 @@ const BuildStorage = {
 
         return builds.insert(this.convertId(buildRequest));
     },
-    async getBuildWithId(buildId) {
+    async getBuildById(id) {
         const builds = await this.db.collection(BUILD_COLLECTION);
 
-        return builds.findOne({ '_id': buildId })
+        return builds.findOne({ '_id': id })
             .then(document => this.convertId(document));
+    },
+    async getExecutionById(id) {
+        const builds = await this.db.collection(BUILD_COLLECTION);
+
+        return builds.findOne({ '_id': id }, { execution: 1 })
+            .then(document => this.convertId(document));
+    },
+    async updateExecution(id, execution) {
+        const builds = await this.db.collection(BUILD_COLLECTION);
+
+        return builds.updateOne({ '_id': id }, { '$set': { execution } });
     },
     convertId(document) {
         const result = Object.assign({}, document);
