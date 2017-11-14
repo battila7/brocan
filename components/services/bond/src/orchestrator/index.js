@@ -85,9 +85,9 @@ const Orchestrator = {
             throw new Error('There is no build to execute.');
         }
 
-        this.buildId = context.build.buildId;
+        this.id = context.build.id;
 
-        logger.info('Executing build with id "%s"', context.build.buildId);
+        logger.info('Executing build with id "%s"', context.build.id);
         logger.debug(context.build);
     },
     createDirectory() {
@@ -102,7 +102,7 @@ const Orchestrator = {
         context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
     },
     async createContainer(context) {
-        context.container = await this.deps.steps.createContainer.create(context.base, context.build.buildId, cloneDirectory);
+        context.container = await this.deps.steps.createContainer.create(context.base, context.build.id, cloneDirectory);
     },
     async runContainer(context) {
         await this.deps.steps.runContainer.run(context.container);
@@ -114,7 +114,7 @@ const Orchestrator = {
         if (context.timeout) {
             logger.info('Publishing timeout update');
             
-            this.updateBuildStatus(this.buildId, 'build', { status: 'failure', reason: 'timeout' });
+            this.updateBuildStatus(this.id, 'build', { status: 'failure', reason: 'timeout' });
         }
     },
     removeFromQueue(context) {
@@ -142,20 +142,20 @@ const Orchestrator = {
         }
     },
     unsetBuildId() {
-        logger.info('Releasing build with id "%s"', this.buildId);
+        logger.info('Releasing build with id "%s"', this.id);
 
-        this.buildId = undefined;
+        this.id = undefined;
     },
 
-    updateBuildStatus(buildId, stage, payload) {
-        if (buildId != this.buildId) {
-            logger.warn('Dropping build status update because build id "%s" does not match "%s"', buildId, this.buildId);
+    updateBuildStatus(id, stage, payload) {
+        if (id != this.id) {
+            logger.warn('Dropping build status update because build id "%s" does not match "%s"', id, this.id);
 
             return;
         }
 
         const message = Object.assign({}, payload, {
-            buildId,
+            id,
             stage
         });
 

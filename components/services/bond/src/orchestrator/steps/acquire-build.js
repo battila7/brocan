@@ -17,11 +17,11 @@ const acquireBuild = {
 
         logger.info('Received new job with id "%s"', job.jid);
 
-        const buildId = job.args[0];
+        const id = job.args[0];
 
         const build = await this.deps.Messaging.actAsync({
             topic: 'build.queryBuildData',
-            buildId
+            id
         });
 
         logger.info('Succesfully retrieved build data');

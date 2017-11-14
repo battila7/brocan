@@ -13,11 +13,11 @@ const Queue = {
     setup() {
         return client.connect();
     },
-    push(buildId) {
+    push(id) {
         return client.push({
             jobtype: 'build',
             queue: 'default',
-            args: [buildId]
+            args: [id]
         });
     }
 }

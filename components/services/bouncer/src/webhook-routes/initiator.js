@@ -9,12 +9,12 @@ const Initiator = {
     async initiateBuild(isDryRun = false) {
         const buildRequest = await this.transformWebhookRequest();
 
-        const buildId = await this.requestBuildId(buildRequest);
+        const id = await this.requestBuildId(buildRequest);
 
-        buildRequest.buildId = buildId;
+        buildRequest.id = id;
 
         if (!isDryRun) {
-            await this.announceBuild(buildRequest);
+            await this.announceBuild(this.webhookRequest, buildRequest);
         }
 
         return buildRequest;
@@ -42,7 +42,7 @@ const Initiator = {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(response.buildId);
+                    resolve(response.id);
                 }
             });
         });

@@ -21,8 +21,8 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
   * **Topic** - `build.generateIdentifier`
   * **Type** - `req/repl`
   * **Payload**
-    * `buildRequest` - A BBRF object without `buildId` field.
+    * `buildRequest` - A BBRF object without `id` field.
   * **Response**
-    * `buildId` - The newly generated build identifier.
+    * `id` - The newly generated build identifier.
   * **Description**
     * Generates a new build identifier using the data in included in the BBRF object.

@@ -1,11 +1,11 @@
 const Storage = {
     map: new Map(),
 
-    put(buildId, metadata) {
-        this.map.set(buildId, metadata);
+    put(id, metadata) {
+        this.map.set(id, metadata);
     },
     get(buildId) {
-        return this.map.get(buildId);
+        return this.map.get(id);
     }
 };
 

@@ -24,7 +24,7 @@ hemera.ready(function hemeraReady() {
         logger.info('Generated new build identifier "%s".', buildId);
 
         return Promise.resolve({
-            buildId
+            id
         });
     });
 });
