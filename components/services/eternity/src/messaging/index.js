@@ -7,6 +7,20 @@ const nats = require('nats').connect({
 
 const hemera = new Hemera(nats);
 
-const Messaging = Object.create(hemera);
+const Messaging = {
+    start() {
+        return new Promise((resolve, reject) => {
+            this.ready(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            })
+        })
+    }
+};
+
+Object.setPrototypeOf(Messaging, hemera);
 
 module.exports = Messaging;

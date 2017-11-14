@@ -4,9 +4,14 @@ const logger = require('./logger').child({ component: 'main' });
 
 const Messaging = require('./messaging');
 const BuildService = require('./build-service');
+const Compose = require('./compose');
 
-Messaging.ready(function messagingReady() {
-    const messageSource = Rx.Observable.bindCallback(Messaging.add.bind(Messaging));
+Messaging.start()
+    .then(() => Compose.bootstrap())
+    .then(setupMessages)
+    
+function setupMessages({ buildService }) {
+    const observableFromMessages = Rx.Observable.bindCallback(Messaging.add.bind(Messaging));
 
     observableFromMessages({
         topic: 'build.info',
@@ -15,7 +20,7 @@ Messaging.ready(function messagingReady() {
         pubsub$: true
     }).pluck('buildRequest')
       .each(buildRequest => logger.info('Received a new build request', buildRequest))
-      .subscribe(buildRequest => BuildService.storeNewBuild(buildRequest));
+      .subscribe(buildRequest => buildService.storeNewBuild(buildRequest));
 
     observableFromMessages({
         topic: 'build.info',
@@ -23,4 +28,4 @@ Messaging.ready(function messagingReady() {
 
         pubsub$: true
     });
-});
+}
