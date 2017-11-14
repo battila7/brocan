@@ -1,12 +1,6 @@
-const Identifier = require('../identifier');
-
 const Transformer = {
-    deps: {
-        Identifier
-    },
-
-    async transform(payload) {
-        const result = {
+    transform(payload) {
+        return {
             commitCount: payload.size,
             timestamp: Date.now(),
             author: {
@@ -28,12 +22,6 @@ const Transformer = {
                 uri: payload.repository.url
             }
         };
-
-        const buildId = await this.deps.Identifier.request(result);
-
-        result.buildId = buildId;
-            
-        return result;
     },
     branchName(payload) {
         return payload.ref.split('/')[2];
