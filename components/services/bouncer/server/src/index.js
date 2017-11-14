@@ -16,10 +16,7 @@ server.register([{
         nats: config.get('nats.uri')
     }
 }, {
-    register: require('@brocan/bouncer-github'),
-    routes: {
-        prefix: '/github'
-    }
+    register: require('./webhook-routes')
 }], function registerCallback(err) {
     if (err) {
         throw err;
