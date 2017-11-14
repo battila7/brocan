@@ -13,7 +13,7 @@ const config = convict({
         uri: {
             doc: 'The URI via MongoDB can be accessed.',
             format: String,
-            default: 'mongodb://mongo:27017',
+            default: 'mongodb://mongo:27017/brocan',
             env: 'MONGO_URI'
         }
     },

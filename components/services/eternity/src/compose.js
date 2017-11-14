@@ -9,8 +9,7 @@ const Compose = {
     async bootstrap() {
         this.components = {};
 
-        // const db = await MongoClient.connect(config.get('mongo.uri'));
-        const db = null;
+        const db = await MongoClient.connect(config.get('mongo.uri'));
     
         this.components.buildStorage = Object.create(BuildStorage);
         this.components.buildStorage.BuildStorage(db);

@@ -55,6 +55,8 @@ services:
     image: mongo
     ports:
       - '27017:27017'
+    volumes:
+      - /data/brocan:/data/db
   nats:
     image: nats
     entrypoint:

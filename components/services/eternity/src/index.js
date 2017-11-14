@@ -11,21 +11,28 @@ Messaging.start()
     .then(setupMessages)
     
 function setupMessages({ buildService }) {
-    const observableFromMessages = Rx.Observable.bindCallback(Messaging.add.bind(Messaging));
+    Rx.Observable.fromEventPattern(newBuild)
+        .pluck('buildRequest')
+        .do(buildRequest => logger.info('Received a new build request', buildRequest))
+        .subscribe(buildRequest => buildService.storeNewBuild(buildRequest));
 
-    observableFromMessages({
+    Rx.Observable.fromEventPattern(newBuild);
+}
+
+function newBuild(handler) {
+    Messaging.add({
         topic: 'build.info',
         role: 'new',
 
         pubsub$: true
-    }).pluck('buildRequest')
-      .each(buildRequest => logger.info('Received a new build request', buildRequest))
-      .subscribe(buildRequest => buildService.storeNewBuild(buildRequest));
+    }, handler);
+}
 
-    observableFromMessages({
+function buildProgress(handler) {
+    Messaging.add({
         topic: 'build.info',
         role: 'progress',
 
         pubsub$: true
-    });
+    }, handler);
 }
