@@ -21,13 +21,13 @@ hemera.ready(function hemeraReady() {
 
         pubsub$: true
     }, async function store(request) {
-        logger.info('Storing request for buildId "%s"', request.buildRequest.buildId);
+        logger.info('Storing request for id "%s"', request.buildRequest.id);
 
         logger.debug(request.buildRequest);
 
-        storage.store(request.buildRequest.buildId, request.webhookRequest)
+        storage.store(request.buildRequest.id, request.webhookRequest)
             .catch(err => {
-                logger.warn('Could not add buildId "%s" to origin storage', request.buildRequest.buildId);
+                logger.warn('Could not add id "%s" to origin storage', request.buildRequest.id);
                 logger.warn(err);
             });
 
@@ -37,8 +37,8 @@ hemera.ready(function hemeraReady() {
     hemera.add({
         topic: 'build.retrieveOrigin',
     }, async function retrieve(request) {
-        logger.info('Retrieving request for buildId "%s"', request.buildId);
+        logger.info('Retrieving request for id "%s"', request.id);
 
-        return await storage.retrieve(request.buildId);
+        return await storage.retrieve(request.id);
     });
 });

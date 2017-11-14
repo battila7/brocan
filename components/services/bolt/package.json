@@ -1,6 +1,6 @@
 {
   "name": "@brocan/bolt",
-  "version": "2.1.3",
+  "version": "2.1.10",
   "description": "The build runner of Brocan CI.",
   "main": "src/index.js",
   "bin": {

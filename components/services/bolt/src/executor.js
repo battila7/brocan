@@ -37,8 +37,12 @@ const Executor = {
 
         logger.info('"%s" step commencing', step.name);
 
+        let commandIndex = 0;
+
         for (const command of step.commands) {
-            const success = await this.executeCommand(command, step.name);
+            const success = await this.executeCommand(command, commandIndex, step.name);
+
+            this.emit('command.success', command, commandIndex, step.name);
 
             if (!success) {
                 this.emit('step.failure', step.name);
@@ -47,6 +51,8 @@ const Executor = {
 
                 return false;
             }
+
+            commandIndex += 1;
         }
 
         this.emit('step.success', step.name);
@@ -55,29 +61,27 @@ const Executor = {
 
         return true;
     },
-    executeCommand(command, stepName) {
+    executeCommand(command, commandIndex, stepName) {
         return new Promise(function commandPromise(resolve, reject) {
-            this.emit('command.start', command, stepName);
+            this.emit('command.start', command, commandIndex, stepName);
             
-            logger.info('Performing "%s" command', command);
+            logger.info('Performing %d. command "%s"', commandIndex, command);
 
             const split = this.splitCommand(command);
 
             const process = this.deps.spawn(split.cmd, split.args, { stdio: 'inherit' });
 
             process.on('close', function closed() {
-                this.emit('command.success', command, stepName);
-                
                 logger.info('"%s" finished', command);
 
                 resolve(true);
             });
 
             process.on('error', function error(err) {
-                this.emit('command.failure', err, command, stepName);
+                this.emit('command.failure', err, command, commandIndex, stepName);
     
                 logger.error('"%s" failed', command);
-                logger.error('Failure: %s', err);
+                logger.error(err);
 
                 resolve(false);
             });

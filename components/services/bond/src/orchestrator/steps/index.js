@@ -1,7 +1,8 @@
 module.exports = {
     acquireBuild: require('./acquire-build'),
     cloneRepository: require('./clone-repository'),
-    readBaseImage: require('./read-base-image'),
+    readBrocanfile: require('./read-brocanfile'),
+    publishPlan: require('./publish-plan'),
     removeDirectory: require('./remove-directory'),
     createDirectory: require('./create-directory'),
     createContainer: require('./create-container'),

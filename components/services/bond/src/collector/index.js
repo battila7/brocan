@@ -19,13 +19,13 @@ const Collector = {
         return new Promise(function callback(resolve, reject) {
             fastify.route({
                 method: 'POST',
-                url: '/:buildId/report/:stage',
+                url: '/:id/report/:stage',
             
                 handler(req, resp) {
                     resp.send({});
 
                     if (VALID_STAGES.includes(req.params.stage)) {
-                        fastify.emit('progress', req.params.buildId, req.params.stage, req.body);
+                        fastify.emit('progress', req.params.id, req.params.stage, req.body);
                     } else {
                         logger.warn('Invalid stage received "%s"', req.params.stage);
                     }

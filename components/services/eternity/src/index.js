@@ -6,8 +6,6 @@ const Messaging = require('./messaging');
 const BuildService = require('./build-service');
 const Compose = require('./compose');
 
-const FAILED_STATUS = 'failed';
-
 Messaging.start()
     .then(() => Compose.bootstrap())
     .then(setupMessages)
@@ -21,9 +19,13 @@ function setupMessages({ buildService }) {
                 .catch(err => logger.warn(err));
         });
 
+    Rx.Observable.fromEventPattern(buildPlan)
+        .do(request => logger.info('Received build plan', request))
+        .subscribe(request => buildService.addPlan(request.id, request.steps));
+
     Rx.Observable.fromEventPattern(buildProgress)
         .do(request => logger.info('Received build progress update', request))
-        .subscribe(update => buildService.addFailedUpdate(update));
+        .subscribe(update => buildService.addUpdate(update));
 
     Messaging.add({
         topic: 'build.queryBuild'
@@ -40,6 +42,15 @@ function newBuild(handler) {
     Messaging.add({
         topic: 'build.info',
         role: 'new',
+
+        pubsub$: true
+    }, handler);
+}
+
+function buildPlan(handler) {
+    Messaging.add({
+        topic: 'build.info',
+        role: 'plan',
 
         pubsub$: true
     }, handler);

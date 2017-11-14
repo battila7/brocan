@@ -19,9 +19,9 @@ hemera.ready(function hemeraReady() {
 
         logger.debug(request.buildRequest);
 
-        const buildId = Generator.generateFrom(request.buildRequest);
+        const id = Generator.generateFrom(request.buildRequest);
 
-        logger.info('Generated new build identifier "%s".', buildId);
+        logger.info('Generated new build identifier "%s".', id);
 
         return Promise.resolve({
             id

@@ -54,7 +54,7 @@ const Reporter = {
             [ 'step.success', 'reportStepSuccess' ],
             [ 'command.start', 'reportCommandStart' ],
             [ 'command.failure', 'reportCommandFailure' ],
-            [ 'command.success', 'reportCommandSuccess' ]
+            [ 'command.success', 'reportCommandSuccess' ],
         ];
 
         listenerMapping.forEach(mapping => {
@@ -79,20 +79,20 @@ const Reporter = {
     reportStepSuccess(stepName) {
         this.postTo(this.mappings.stepReport, status.successful, { name: stepName });
     },
-    reportCommandStart(command, stepName) {
-        this.postTo(this.mappings.commandReport, status.in_progess, { command, step: stepName });
+    reportCommandStart(command, index, stepName) {
+        this.postTo(this.mappings.commandReport, status.in_progess, { command, index, step: stepName });
     },
-    reportCommandFailure(err, command, stepName) {
-        this.postTo(this.mappings.commandReport, status.failed, { command, reason: err.toString(), step: stepName });
+    reportCommandFailure(err, command, index, stepName) {
+        this.postTo(this.mappings.commandReport, status.failed, { command, index, reason: err.toString(), step: stepName });
     },
-    reportCommandSuccess(command, stepName) {
-        this.postTo(this.mappings.commandReport, status.successful, { command, step: stepName });
+    reportCommandSuccess(command, index, stepName) {
+        this.postTo(this.mappings.commandReport, status.successful, { command, index, step: stepName });
     },
     postTo(uri, status, body = {}) {
         logger.debug('Reporting to %s', uri);
 
         const opts = {
-            body: Object.assign({ status }, body),
+            body: Object.assign({}, body, { status }),
             method: 'POST',
             json: true
         };

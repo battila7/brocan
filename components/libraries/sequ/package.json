@@ -1,6 +1,6 @@
 {
   "name": "@brocan/sequ",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Sequ is a basic queue which will execute promise-providing functions sequentially, only one-at-a-time.",
   "main": "src/index.js",
   "repository": {

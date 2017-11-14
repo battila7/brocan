@@ -1,3 +1,5 @@
+const Sequ = require('@brocan/sequ');
+
 const BuildService = {
     BuildService(storage) {
         this.updateMap = {
@@ -7,6 +9,16 @@ const BuildService = {
         };
 
         this.storage = storage;
+
+        this.sequMap = new Map();
+
+        setInterval(() => {
+            for (const [id, sequ] in this.sequMap) {
+                if (sequ.length == 0) {
+                    this.sequMap.delete(id);
+                }
+            }
+        }, 60000);
     },
 
     storeNewBuild(buildRequest) {
@@ -15,14 +27,35 @@ const BuildService = {
     getBuildById(id) {
         return this.storage.getBuildById(id);
     },
+    addPlan(id, steps) {
+        const newSteps = steps.map(step => {
+                return {
+                    name: step.name,
+                    commands: step.commands.map(cmd => ({ command: cmd }))
+                }
+            });
+
+        return this.storage.updateExecution(id, { steps: newSteps });
+    },
     addUpdate(update) {        
-        return this.updateMap[update.stage](update);
+        const updater = this.updateMap[update.stage].bind(null, update);
+
+        return this.queueUpdate(update.id, updater);
+    },
+    queueUpdate(id, updater) {
+        if (!this.sequMap.has(id)) {
+            this.sequMap.set(id, Sequ());
+        }
+
+        const sequ = this.sequMap.get(id);
+
+        return sequ.do(updater);
     },
 
     async updateBuildStatus(update) {
         const document = await this.storage.getExecutionById(update.id);
 
-        this.setStatusIfUnset(document.execution, update.status);
+        document.execution.status = update.status;
 
         return this.storage.updateExecution(document.id, document.execution);
     },
@@ -31,7 +64,7 @@ const BuildService = {
         
         const step = document.execution.steps.find(step => step.name == update.name);
 
-        this.setStatusIfUnset(step, update.status);
+        step.status = update.status;
 
         return this.storage.updateExecution(document.id, document.execution);
     },
@@ -40,16 +73,15 @@ const BuildService = {
         
         const step = document.execution.steps.find(step => step.name == update.step);
 
-        const command = step.commands.find(cmd => cmd.command == update.command );
+        const command = step.commands[update.index];
 
-        this.setStatusIfUnset(command, update.status);
+        command.status = update.status;
+
+        if (update.reason) {
+            document.reason = reason;
+        }
         
         return this.storage.updateExecution(document.id, document.execution);
-    },
-    setStatusIfUnset(obj, newStatus) {
-        if (!obj.status) {
-            obj.status = newStatus;
-        }
     }
 };
 

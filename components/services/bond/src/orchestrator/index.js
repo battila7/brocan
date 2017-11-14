@@ -57,7 +57,8 @@ const Orchestrator = {
             this.getNextBuild,
             this.createDirectory,
             this.cloneRepository,
-            this.readBaseImage,
+            this.readBrocanfile,
+            this.publishPlan,
             this.createContainer,
             this.runContainer
         ], context);
@@ -96,13 +97,16 @@ const Orchestrator = {
     cloneRepository(context) {
         return this.deps.steps.cloneRepository.clone(context.build.repository.uri, context.build.commit.hash, cloneDirectory);
     },
-    async readBaseImage(context) {
+    async readBrocanfile(context) {
         const filename = path.join(cloneDirectory, 'brocan.hjson');
 
-        context.base = await this.deps.steps.readBaseImage.getBaseImage(filename);
+        context.brocanfile = await this.deps.steps.readBrocanfile.read(filename);
+    },
+    publishPlan(context) {
+        return this.deps.steps.publishPlan.publish(context.build.id, context.brocanfile.steps);
     },
     async createContainer(context) {
-        context.container = await this.deps.steps.createContainer.create(context.base, context.build.id, cloneDirectory);
+        context.container = await this.deps.steps.createContainer.create(context.brocanfile.base, context.build.id, cloneDirectory);
     },
     async runContainer(context) {
         await this.deps.steps.runContainer.run(context.container);
@@ -158,6 +162,8 @@ const Orchestrator = {
             id,
             stage
         });
+
+        logger.warn(message);
 
         return this.deps.Publisher.publish(message);
     }
