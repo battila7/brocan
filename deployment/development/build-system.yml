@@ -15,7 +15,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/brocan:/tmp/brocan
   bouncer: 
-    build: ../../components/services/bouncer/server
+    build: ../../components/services/bouncer
     depends_on:
       - nats
     ports:
