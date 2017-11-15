@@ -10,7 +10,7 @@ services:
       - faktory
       - nats
     ports:
-      - '3000:3000'
+      - '4000:4000'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/brocan:/tmp/brocan
@@ -59,6 +59,10 @@ services:
     ports:
       - '7419:7419'
       - '7420:7420'
+  grafana:
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
   kibana:
     image: kibana
     ports:
@@ -81,6 +85,18 @@ services:
       - '4222:4222'
       - '6222:6222'
       - '8222:8222'
+  prometheus:
+    build: '../../components/utilities/prometheus'
+    ports:
+      - '9090:9090' 
+  prometheus-nats-exporter:
+    build: '../../components/utilities/nats-metrics'
+    entrypoint:
+      - 'prometheus-nats-exporter'
+      - -varz
+      - 'http://nats:8222'
+    ports:
+      - '7777:7777'
   redis:
     image: redis
     ports:
