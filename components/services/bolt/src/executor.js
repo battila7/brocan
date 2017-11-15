@@ -69,7 +69,21 @@ const Executor = {
 
             const split = this.splitCommand(command);
 
-            const process = this.deps.spawn(split.cmd, split.args, { stdio: 'inherit' });
+            const process = this.deps.spawn(split.cmd, split.args, { stdio: 'pipe' });
+
+            process.stdout.on('data', data => {
+                logger.info({
+                    commandOutput: true,
+                    commandSource: 'stdout'
+                }, data.toString());
+            });
+
+            process.stderr.on('data', data => {
+                logger.info({
+                    commandOutput: true,
+                    commandSource: 'stderr'
+                }, data.toString());
+            });
 
             process.on('close', function closed() {
                 logger.info('"%s" finished', command);

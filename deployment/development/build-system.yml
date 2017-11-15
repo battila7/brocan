@@ -45,12 +45,24 @@ services:
       - nats
 
   # Third-party services
+  elasticsearch:
+    image: elasticsearch:5
+    command: elasticsearch -E network.host=0.0.0.0 -E discovery.zen.minimum_master_nodes=1 
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    links:
+      - kibana
   faktory:
     image: contribsys/faktory
     entrypoint: ./faktory -b 0.0.0.0:7419
     ports:
       - '7419:7419'
       - '7420:7420'
+  kibana:
+    image: kibana
+    ports:
+      - '5601:5601'
   mongo:
     image: mongo
     ports:
