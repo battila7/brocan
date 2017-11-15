@@ -1,6 +1,4 @@
-const path = require('path');
 const convict = require('convict');
-const logger = require('./logger');
 
 
 const config = convict({
@@ -30,12 +28,6 @@ const config = convict({
     }
 });
 
-
-logger.debug('Loading configuration with schema');
-logger.debug(config.getSchema());
-
-logger.info('Loaded configuration');
-logger.debug(config.toString());
 
 config.validate({ allowed: 'strict' });
 
