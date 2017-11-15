@@ -1,9 +1,13 @@
 const pino = require('pino');
-const pretty = pino.pretty();
 
-pretty.pipe(process.stdout)
+const map = Object.create(null);
 
-module.exports = pino({
-  name: 'app',
-  safe: true
-}, pretty);
+const logger = pino({
+  name: 'bond',
+  safe: true,
+  base: map
+});
+
+logger.map = map;
+
+module.exports = logger;

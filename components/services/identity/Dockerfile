@@ -6,7 +6,10 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 COPY package-lock.json /usr/src/app/
 RUN npm install
+RUN npm install pino-elasticsearch
 
 COPY . /usr/src/app
 
-CMD [ "npm", "start" ]
+RUN chmod +x ./run-with-logging.sh
+
+CMD ./run-with-logging.sh
