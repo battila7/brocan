@@ -40,14 +40,16 @@ const Executor = {
         let commandIndex = 0;
 
         for (const command of step.commands) {
-            const success = await this.executeCommand(command, commandIndex, step.name);
+            const { code, err } = await this.executeCommand(command, commandIndex, step.name);
 
-            this.emit('command.success', command, commandIndex, step.name);
-
-            if (!success) {
-                this.emit('step.failure', step.name);
+            if (code == 0) {
+                this.emit('command.success', command, commandIndex, step.name);
+            } else {
+                this.emit('command.failure', err, command, commandIndex, step.name);
 
                 logger.error('"%s" step failed', step.name);
+
+                this.emit('step.failure', step.name);
 
                 return false;
             }
@@ -85,19 +87,22 @@ const Executor = {
                 }, data.toString());
             });
 
-            process.on('close', function closed() {
-                logger.info('"%s" finished', command);
+            process.on('close', function closed(code) {
+                logger.info('"%s" finished with exit code %d', command, code);
 
-                resolve(true);
+                resolve({
+                    code
+                });
             });
 
             process.on('error', function error(err) {
-                this.emit('command.failure', err, command, commandIndex, stepName);
-    
                 logger.error('"%s" failed', command);
                 logger.error(err);
 
-                resolve(false);
+                resolve({
+                    code: 1,
+                    err
+                });
             });
         }.bind(this));
     },

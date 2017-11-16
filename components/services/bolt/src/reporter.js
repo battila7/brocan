@@ -83,7 +83,9 @@ const Reporter = {
         this.postTo(this.mappings.commandReport, status.in_progess, { command, index, step: stepName });
     },
     reportCommandFailure(err, command, index, stepName) {
-        this.postTo(this.mappings.commandReport, status.failed, { command, index, reason: err.toString(), step: stepName });
+        const reason = err ? err.toString() : '';
+
+        this.postTo(this.mappings.commandReport, status.failed, { command, index, reason, step: stepName });
     },
     reportCommandSuccess(command, index, stepName) {
         this.postTo(this.mappings.commandReport, status.successful, { command, index, step: stepName });
