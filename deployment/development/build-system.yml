@@ -2,6 +2,11 @@ version: '3'
 
 services:
   # Brocan services
+  bay:
+    build: ../../components/services/bay
+    depends_on:
+      - nats
+      - bay-redis
   bond: 
     build: ../../components/services/bond
     environment:
@@ -38,7 +43,7 @@ services:
     build: ../../components/services/origins
     depends_on:
       - nats
-      - redis
+      - origins-redis
   transformer-github:
     build: ../../components/services/transformer/github
     depends_on:
@@ -97,10 +102,20 @@ services:
       - 'http://nats:8222'
     ports:
       - '7777:7777'
-  redis:
+  bay-redis:
     image: redis
     ports:
-      - '6379:6379'
+      - '6400:6379'
+  origins-redis:
+    image: redis
+    ports:
+      - '6401:6379'
+  registry:
+    image: registry
+    ports:
+      - '5000:5000'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
   default:

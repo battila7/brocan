@@ -1,7 +1,7 @@
 {
   "name": "@brocan/bay",
   "version": "1.0.0",
-  "description": "Base container translator service of the Brocan CI.",
+  "description": "Base image translator service of the Brocan CI.",
   "main": "src/index.js",
   "repository": {
     "url": "https://github.com/battila7/brocan/tree/master/components/services/bond",

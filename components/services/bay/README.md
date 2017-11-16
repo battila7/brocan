@@ -1,3 +1,3 @@
 # Bay
 
-Base container translator service of the Brocan CI.
+Base image translator service of the Brocan CI.

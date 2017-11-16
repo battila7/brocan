@@ -17,11 +17,11 @@ const Storage = {
 
         this.client.on('ready', () => logger.info('Redis client is ready'));
     },
-    store(buildId, payload) {
-        return this.client.setAsync(buildId, JSON.stringify(payload), 'NX');
+    store(from, to) {
+        return this.client.setAsync(from, to);
     },
-    retrieve(id) {
-        return this.client.getAsync(id);
+    retrieve(base) {
+        return this.client.getAsync(base);
     }
 };
 

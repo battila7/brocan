@@ -33,7 +33,7 @@ const Orchestrator = {
                 reject('The build has timed out!');
             };
 
-            setTimeout(callback, 120000);
+            setTimeout(callback, 1800000);
         });
 
         try {
@@ -59,6 +59,8 @@ const Orchestrator = {
             this.cloneRepository,
             this.readBrocanfile,
             this.publishPlan,
+            this.translateBaseImage,
+            this.pullBaseImage,
             this.createContainer,
             this.runContainer
         ], context);
@@ -105,8 +107,14 @@ const Orchestrator = {
     publishPlan(context) {
         return this.deps.steps.publishPlan.publish(context.build.id, context.brocanfile.steps);
     },
+    async translateBaseImage(context) {
+        context.image = await this.deps.steps.translateBaseImage.translate(context.brocanfile.base);
+    },
+    pullBaseImage(context) {
+        return this.deps.steps.pullBaseImage.pull(context.image);
+    },
     async createContainer(context) {
-        context.container = await this.deps.steps.createContainer.create(context.brocanfile.base, context.build.id, cloneDirectory);
+        context.container = await this.deps.steps.createContainer.create(context.image, context.build.id, cloneDirectory);
     },
     async runContainer(context) {
         await this.deps.steps.runContainer.run(context.container);

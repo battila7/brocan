@@ -9,5 +9,7 @@ module.exports = {
     runContainer: require('./run-container'),
     stopContainer: require('./stop-container'),
     removeContainer: require('./remove-container'),
-    removeFromQueue: require('./remove-from-queue')
+    removeFromQueue: require('./remove-from-queue'),
+    pullBaseImage: require('./pull-base-image'),
+    translateBaseImage: require('./translate-base-image')
 };

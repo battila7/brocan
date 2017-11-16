@@ -16,18 +16,15 @@ const hemera = new Hemera(nats);
 
 hemera.ready(function hemeraReady() {
     hemera.add({
-        topic: 'build.info',
-        role: 'new',
+        topic: 'build.addBaseImageTranslation',
+    }, async function add(request) {
+        logger.info('Adding new base image, translating "%s" to "%s"', request.from, request.to);
 
-        pubsub$: true
-    }, async function store(request) {
-        logger.info('Storing request for id "%s"', request.buildRequest.id);
+        logger.debug(request);
 
-        logger.debug(request.buildRequest);
-
-        storage.store(request.buildRequest.id, request.webhookRequest)
+        storage.store(request.from, request.to)
             .catch(err => {
-                logger.warn('Could not add id "%s" to origin storage', request.buildRequest.id);
+                logger.warn('Could not add new base image translation');
                 logger.warn(err);
             });
 
@@ -35,10 +32,14 @@ hemera.ready(function hemeraReady() {
     });
 
     hemera.add({
-        topic: 'build.retrieveOrigin',
-    }, async function retrieve(request) {
-        logger.info('Retrieving request for id "%s"', request.id);
+        topic: 'build.getBaseImageTranslation',
+    }, async function get(request) {
+        logger.info('Retrieving translation for base image "%s"', request.base);
 
-        return await storage.retrieve(request.id);
+        const image = await storage.retrieve(request.base);
+
+        return {
+            image
+        }
     });
 });

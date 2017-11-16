@@ -21,7 +21,7 @@ const config = convict({
         uri: {
             doc: 'The URI of the image name translator Redis instace.',
             format: String,
-            default: 'redis://redis:6379',
+            default: 'redis://bay-redis:6379',
             env: 'REDIS_URI'
         }
     }
