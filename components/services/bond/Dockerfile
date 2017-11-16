@@ -12,5 +12,5 @@ COPY . /usr/src/app
 
 RUN chmod +x ./run-with-logging.sh
 
-# CMD ./run-with-logging.sh
-CMD ["npm", "start"]
+CMD ./run-with-logging.sh
+# CMD ["npm", "start"]

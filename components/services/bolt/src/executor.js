@@ -76,14 +76,20 @@ const Executor = {
             process.stdout.on('data', data => {
                 logger.info({
                     commandOutput: true,
-                    commandSource: 'stdout'
+                    commandSource: 'stdout',
+                    step: stepName,
+                    command,
+                    commandIndex
                 }, data.toString());
             });
 
             process.stderr.on('data', data => {
                 logger.info({
                     commandOutput: true,
-                    commandSource: 'stderr'
+                    commandSource: 'stderr',
+                    step: stepName,
+                    command,
+                    commandIndex
                 }, data.toString());
             });
 

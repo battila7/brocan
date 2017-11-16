@@ -4,7 +4,7 @@
   "description": "Base image translator service of the Brocan CI.",
   "main": "src/index.js",
   "repository": {
-    "url": "https://github.com/battila7/brocan/tree/master/components/services/bond",
+    "url": "https://github.com/battila7/brocan/tree/master/components/services/bay",
     "type": "git"
   },
   "scripts": {

@@ -30,6 +30,11 @@ services:
     depends_on:
       - mongo
       - nats
+  hound:
+    build: ../../components/services/hound
+    depends_on:
+      - elasticsearch
+      - nats
   identity: 
     build: ../../components/services/identity
     depends_on:
