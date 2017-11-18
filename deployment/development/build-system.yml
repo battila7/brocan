@@ -25,6 +25,12 @@ services:
       - nats
     ports:
       - '8080:8080'
+  entrance:
+    build: ../../components/services/entrance
+    depends_on:
+      - nats
+    ports:
+      - '8090:8090'
   eternity: 
     build: ../../components/services/eternity
     depends_on:
