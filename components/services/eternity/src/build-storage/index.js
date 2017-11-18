@@ -26,6 +26,15 @@ const BuildStorage = {
 
         return builds.updateOne({ '_id': id }, { '$set': { execution } });
     },
+    async updateBuild(build) {
+        const builds = await this.db.collection(BUILD_COLLECTION);
+
+        const document = Object.assign({}, build);
+
+        delete document.id;
+        
+        return builds.updateOne({ '_id': build.id }, { '$set': { ...document } });
+    },
     convertId(document) {
         const result = Object.assign({}, document);
 

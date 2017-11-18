@@ -1,5 +1,7 @@
 const Sequ = require('@brocan/sequ');
 
+const IN_PROGRESS = 'in_progress';
+
 const BuildService = {
     BuildService(storage) {
         this.updateMap = {
@@ -53,11 +55,17 @@ const BuildService = {
     },
 
     async updateBuildStatus(update) {
-        const document = await this.storage.getExecutionById(update.id);
+        const build = await this.storage.getBuildById(update.id);
 
-        document.execution.status = update.status;
+        build.execution.status = update.status;
 
-        return this.storage.updateExecution(document.id, document.execution);
+        if (update.status == IN_PROGRESS) {
+            build.startedAt = Date.now();
+        } else {
+            build.finishedAt = Date.now();
+        }
+
+        return this.storage.updateBuild(build);
     },
     async updateStepStatus(update) {
         const document = await this.storage.getExecutionById(update.id);
