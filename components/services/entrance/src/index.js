@@ -15,6 +15,16 @@ server.register([{
     options: {
         nats: config.get('nats.uri')
     }
+}, {
+    register: require('./builds'),
+    routes: {
+        prefix: '/builds'
+    }
+}, {
+    register: require('./repositories'),
+    routes: {
+        prefix: '/repositories'
+    }
 }], function registerCallback(err) {
     if (err) {
         throw err;
