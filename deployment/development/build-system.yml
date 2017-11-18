@@ -25,6 +25,11 @@ services:
       - nats
     ports:
       - '8080:8080'
+  build: 
+    build: ../../components/services/build
+    depends_on:
+      - mongo
+      - nats
   entrance:
     build: ../../components/services/entrance
     depends_on:
@@ -55,6 +60,11 @@ services:
     depends_on:
       - nats
       - origins-redis
+  repository: 
+    build: ../../components/services/repository
+    depends_on:
+      - mongo
+      - nats
   transformer-github:
     build: ../../components/services/transformer/github
     depends_on:
