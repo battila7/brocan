@@ -2,8 +2,8 @@ const config = require('./config');
 
 const MongoClient = require('mongodb').MongoClient;
 
-const BuildStorage = require('./build-storage');
-const BuildService = require('./build-service');
+const RepositoryStorage = require('./repository-storage');
+const RepositoryService = require('./repository-service');
 
 const Compose = {
     async bootstrap() {
@@ -11,11 +11,11 @@ const Compose = {
 
         const db = await MongoClient.connect(config.get('mongo.uri'));
     
-        this.components.buildStorage = Object.create(BuildStorage);
-        this.components.buildStorage.BuildStorage(db);
+        this.components.repositoryStorage = Object.create(RepositoryStorage);
+        this.components.repositoryStorage.RepositoryStorage(db);
     
-        this.components.buildService = Object.create(BuildService);
-        this.components.buildService.BuildService(this.components.buildStorage);
+        this.components.repositoryService = Object.create(RepositoryService);
+        this.components.repositoryService.RepositoryService(this.components.repositoryStorage);
     
         return this.components;
     },
