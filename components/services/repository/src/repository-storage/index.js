@@ -9,18 +9,34 @@ const RepositoryStorage = {
 
         return builds.distinct('repository');
     },
-    convertId(document) {
-        const result = Object.assign({}, document);
+    async getRepositoryByUri(uri) {
+        const builds = await this.db.collection(BUILD_COLLECTION);
 
-        if (document['_id']) {
-            result.id = document['_id'];
-            delete result['_id'];
-        } else {
-            result['_id'] = document.id;
-            delete result.id;
-        }
+        return builds.findOne({ 'repository.uri': uri }, { '_id': 0, 'repository' : 1})
+            .then(result => {
+                if (result) {
+                    return {
+                        ...result.repository
+                    };
+                } else {
+                    return result;
+                }
+            });
+    },
+    async getBuildsByRepository(uri) {
+        const builds = await this.db.collection(BUILD_COLLECTION);
 
-        return result;
+        return builds.aggregate([
+            {
+                $match: {
+                    'repository.uri': uri
+                },
+                $project: {
+                    '_id': 0,
+                    'id': '$_id'
+                }
+            }
+        ]);
     }
 }
 

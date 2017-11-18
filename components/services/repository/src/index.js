@@ -22,4 +22,18 @@ function setupMessages({ repositoryService }) {
             .then(repositories => callback(null, { results: repositories }))
             .catch(err => callback(err));
     });
+
+    Messaging.add({
+        topic: 'build.query',
+        entity: 'repository',
+        target: /[^*].*/
+    }, function queryBuild(request, callback) {
+        logger.info('Retrieving builds data for repository "%s"', request.target);
+
+        logger.debug(request);
+
+        repositoryService.getRepository(request.target)
+            .then(repository => callback(null, repository))
+            .catch(err => callback(err));
+    });
 }
