@@ -7,7 +7,7 @@ const RepositoryService = {
         return this.storage.getAllRepositories();
     },
     getRepository(uri) {
-        return Promise.all(this.storage.getRepositoryByUri(uri), this.storage.getBuildsForRepository(uri))
+        return Promise.all([this.storage.getRepositoryByUri(uri), this.storage.getBuildsForRepository(uri)])
             .then(results => this.mapGetRepositoryResults(results));
     },
     mapGetRepositoryResults([ repository, builds ]) {

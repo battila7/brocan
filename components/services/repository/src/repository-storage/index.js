@@ -23,20 +23,22 @@ const RepositoryStorage = {
                 }
             });
     },
-    async getBuildsByRepository(uri) {
+    async getBuildsForRepository(uri) {
         const builds = await this.db.collection(BUILD_COLLECTION);
 
         return builds.aggregate([
             {
                 $match: {
                     'repository.uri': uri
-                },
+                }
+            },
+            {
                 $project: {
                     '_id': 0,
                     'id': '$_id'
                 }
             }
-        ]);
+        ]).toArray();
     }
 }
 
