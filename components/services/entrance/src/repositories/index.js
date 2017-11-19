@@ -12,10 +12,12 @@ const register = function register(server, options, next) {
                 entity: 'repository',
                 target: '*'
             }, (err, response) => {
+                request.logger.info(response);
+
                 if (err) {
                     reply(Boom.badImplementation('Could not process request', err));
                 } else {
-                    reply(response).type(JSON_TYPE);
+                    reply(response);
                 }
             });
         }
@@ -30,10 +32,12 @@ const register = function register(server, options, next) {
                 entity: 'repository',
                 target: request.params.repositoryUri
             }, (err, response) => {
+                request.logger.info(response);
+                
                 if (err) {
                     reply(Boom.badImplementation('Could not process request', err));
                 } else {
-                    reply(response).type(JSON_TYPE);
+                    reply(response);
                 }
             });
         }

@@ -16,13 +16,14 @@ const hemera = new Hemera(nats);
 
 hemera.ready(function hemeraReady() {
     hemera.add({
-        topic: 'build.getLogsForBuild',
+        topic: 'build.query',
+        entity: 'log',
     }, async function get(request) {
-        logger.info('Getting logs for build "%s" from "%d" to "%d"', request.id, request.from, request.to);
+        logger.info('Getting logs for build "%s" from "%d" to "%d"', request.target, request.from, request.to);
 
         logger.debug(request);
 
-        const results = await search.query(request.id, request.from, request.to);
+        const results = await search.query(request.target, request.from, request.to);
 
         return { results };
     });
