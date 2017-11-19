@@ -11,56 +11,31 @@ Messaging.start()
     .then(setupMessages)
     
 function setupMessages({ buildService }) {
-    Rx.Observable.fromEventPattern(newBuild)
-        .pluck('buildRequest')
-        .do(buildRequest => logger.info('Received a new build request', buildRequest))
-        .subscribe(buildRequest => {
-            buildService.storeNewBuild(buildRequest)
-                .catch(err => logger.warn(err));
-        });
+    Messaging.add({
+        topic: 'build.query',
+        entity: 'build',
+        target: '*'
+    }, function queryBuild(request, callback) {
+        logger.info('Retrieving all builds');
 
-    Rx.Observable.fromEventPattern(buildPlan)
-        .do(request => logger.info('Received build plan', request))
-        .subscribe(request => buildService.addPlan(request.id, request.steps));
+        logger.debug(request);
 
-    Rx.Observable.fromEventPattern(buildProgress)
-        .do(request => logger.info('Received build progress update', request))
-        .subscribe(update => buildService.addUpdate(update));
+        buildService.getAllBuilds()
+            .then(builds => callback(null, { results: builds }))
+            .catch(err => callback(err));
+    });
 
     Messaging.add({
-        topic: 'build.queryBuild'
+        topic: 'build.query',
+        entity: 'build',
+        target: /[^*].*/
     }, function queryBuild(request, callback) {
-        logger.info('Retrieving build data for id', request.id);
+        logger.info('Retrieving data for build "%s"', request.target);
 
-        buildService.getBuildById(request.id)
+        logger.debug(request);
+
+        buildService.getBuild(request.target)
             .then(build => callback(null, build))
             .catch(err => callback(err));
     });
-}
-
-function newBuild(handler) {
-    Messaging.add({
-        topic: 'build.info',
-        role: 'new',
-
-        pubsub$: true
-    }, handler);
-}
-
-function buildPlan(handler) {
-    Messaging.add({
-        topic: 'build.info',
-        role: 'plan',
-
-        pubsub$: true
-    }, handler);
-}
-
-function buildProgress(handler) {
-    Messaging.add({
-        topic: 'build.info',
-        role: 'progress',
-
-        pubsub$: true
-    }, handler);
 }

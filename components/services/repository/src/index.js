@@ -13,7 +13,7 @@ function setupMessages({ repositoryService }) {
         topic: 'build.query',
         entity: 'repository',
         target: '*'
-    }, function queryBuild(request, callback) {
+    }, function queryRepository(request, callback) {
         logger.info('Retrieving all repositories');
 
         logger.debug(request);
@@ -27,7 +27,7 @@ function setupMessages({ repositoryService }) {
         topic: 'build.query',
         entity: 'repository',
         target: /[^*].*/
-    }, function queryBuild(request, callback) {
+    }, function queryRepository(request, callback) {
         logger.info('Retrieving builds data for repository "%s"', request.target);
 
         logger.debug(request);

@@ -4,10 +4,12 @@ const BuildStorage = {
     BuildStorage(db) {
         this.db = db;
     },
-    async insertBuild(buildRequest) {
+    async getAllBuilds() {
         const builds = await this.db.collection(BUILD_COLLECTION);
 
-        return builds.insert(this.convertId(buildRequest));
+        return builds.find({}, { _id: 1 })
+            .map(document => document['_id'])
+            .toArray();
     },
     async getBuildById(id) {
         const builds = await this.db.collection(BUILD_COLLECTION);
@@ -15,26 +17,7 @@ const BuildStorage = {
         return builds.findOne({ '_id': id })
             .then(document => this.convertId(document));
     },
-    async getExecutionById(id) {
-        const builds = await this.db.collection(BUILD_COLLECTION);
-
-        return builds.findOne({ '_id': id }, { execution: 1 })
-            .then(document => this.convertId(document));
-    },
-    async updateExecution(id, execution) {
-        const builds = await this.db.collection(BUILD_COLLECTION);
-
-        return builds.updateOne({ '_id': id }, { '$set': { execution } });
-    },
-    async updateBuild(build) {
-        const builds = await this.db.collection(BUILD_COLLECTION);
-
-        const document = Object.assign({}, build);
-
-        delete document.id;
-        
-        return builds.updateOne({ '_id': build.id }, { '$set': { ...document } });
-    },
+    
     convertId(document) {
         const result = Object.assign({}, document);
 
