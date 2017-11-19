@@ -11,7 +11,7 @@ const config = convict({
     port: {
         doc: 'The port Bouncer will listen on.',
         format: 'port',
-        default: '8080',
+        default: '8090',
         env: 'PORT'
     },
     nats: {
