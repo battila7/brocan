@@ -32,7 +32,7 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
 ### Get Translation
 
   * **Channel** - NATS
-  * **Type** - req/reply (out)
+  * **Type** - req/reply (in)
   * **Payload**
     * `topic` - `build.getBaseImageTranslation`
     * `base` - The value to be translated.

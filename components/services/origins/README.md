@@ -25,7 +25,7 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
     * `topic` - `build.info`
     * `role` - `new`
     * `buildRequest` - The BBRF format request created from the WebHook payload.
-    * `webhookRequest` - THe original WebHook payload.
+    * `webhookRequest` - The original WebHook payload.
   * **Response** - none
   * **Description**
     * Stores the `webhookRequest` matched with the resulting BBRF build request.
@@ -33,7 +33,7 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
 ### Get WebHook Payload
 
   * **Channel** - NATS
-  * **Type** - req/reply (out)
+  * **Type** - req/reply (in)
   * **Payload**
     * `topic` - `build.retrieveOrigin`
     * `id` - The id of the build.

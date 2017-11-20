@@ -2,9 +2,15 @@
 
 GitHub WebHook to Brocan Build Request Format transformer service.
 
+## Background
+
+Data coming from WebHooks cannot be fed directly into the Brocan Build System, but m ust be translated into the common Brocan Build Request Format (BBRF). This is done by transformer services.
+
+The GitHub Transformer is capable of translating WebHook payloads coming from GitHub.
+
 ## Environment Dependencies
 
-  * NATS (Hemera)
+  * NATS
 
 ## Expected configuration and environment variables
 
@@ -12,16 +18,14 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
 
 ## Communication
 
-### Inbound
+### Add WebHook Payload
 
-#### NATS - Add
-
-##### Build transform request
-
-  * **Topic**: `build.transform`
-  * **Type**: `req/repl`
-  * **Payload**:
-    * `origin` - `github`.
-    * `webhookRequest` - The payload received as part of the original GitHub request.
+  * **Channel** - NATS
+  * **Type** - req/rep (in)
+  * **Payload**
+    * `topic` - `build.transform`
+    * `webhookRequest` - The original WebHook payload.
+    * The `webhookRequest.headers.x-github-delivery` and `webhookRequest.headers.x-github-event` fields must be present in the payload.
+  * **Response** - A BBRF object.
   * **Description**
-    * A build transformation and initiation request.
+    * Transforms `webhookRequest` into a BBRF object. 
