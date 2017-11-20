@@ -1,9 +1,8 @@
 {
-    "registryUri": "registry:5000",
     "images": [
         {
-            "mappedFrom": "java8-maven",
-            "mappedTo": "maven"
+            "mappedFrom": "maven",
+            "mappedTo": "java8-maven"
         }
     ]
 }
