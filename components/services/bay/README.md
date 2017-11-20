@@ -22,9 +22,10 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
   * **Channel** - NATS
   * **Type** - sink (in)
   * **Payload**
-    * `topic`: `build.addBaseImageTranslation`
-    * `from`: The value which should be translated (ie. is a valid value for the brocanfile `base` field).
-    * `to`: The name of the image that can be pulled and run.
+    * `topic` - `build.addBaseImageTranslation`
+    * `from` - The value which should be translated (ie. is a valid value for the brocanfile `base` field).
+    * `to` - The name of the image that can be pulled and run.
+  * **Response** - none
   * **Description**
     * Inserts a new mapping into the underlying database. This mapping is a new translation from the payload's `from` field to the `to` field.
 
@@ -33,7 +34,9 @@ Please see the schema in [src/config.js](src/config.js) for documentation and de
   * **Channel** - NATS
   * **Type** - req/reply (out)
   * **Payload**
-    * `topic`: `build.getBaseImageTranslation`
-    * `base`: The value to be translated.
+    * `topic` - `build.getBaseImageTranslation`
+    * `base` - The value to be translated.
+  * **Response**
+    * `image` - The result of the translation.
   * **Description**
     * Gets the base image that corresponds to the `base` field.
