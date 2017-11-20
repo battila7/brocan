@@ -20,7 +20,7 @@ const Pusher = {
         return this.deps.client.push({
             jobtype: 'build',
             queue: 'default',
-            args: [ buildRequest.buildId ]
+            args: [ buildRequest.id ]
         });
     }
 };

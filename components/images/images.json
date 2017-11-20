@@ -1,0 +1,8 @@
+{
+    "images": [
+        {
+            "mappedFrom": "maven",
+            "mappedTo": "java8-maven"
+        }
+    ]
+}

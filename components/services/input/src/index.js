@@ -18,12 +18,12 @@ hemera.ready(function hemeraReady() {
 
         pubsub$: true
     }, async function newBuild(request) {
-        logger.info('Pushing build with id "%s" to the build queue', request.buildRequest.buildId);
+        logger.info('Pushing build with id "%s" to the build queue', request.buildRequest.id);
 
         logger.debug(request.buildRequest);
 
         Pusher.push(request.buildRequest)
-            .then(() => logger.info('Build pushed to the queue: "%s".', request.buildRequest.buildId))
+            .then(() => logger.info('Build pushed to the queue: "%s".', request.buildRequest.id))
             .catch(err => logger.warn(err));
     });
 });

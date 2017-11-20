@@ -27,6 +27,10 @@ sequ.do(() => {
 
 ## API
 
+### `length: Number`
+
+The number of elements in the Sequ.
+
 ### `do(provider: () => Promise): Promise`
 
 Places the passed promise provider function into the queue. Returns a promise which is resolved when the original promise is resolved.

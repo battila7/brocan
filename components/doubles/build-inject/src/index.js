@@ -12,9 +12,9 @@ async function setup() {
 }
 
 function putBuild(build) {
-  Storage.put(build.buildId, build);
+  Storage.put(build.id, build);
 
-  Queue.push(build.buildId);
+  Queue.push(build.id);
 }
 
 (async () => {

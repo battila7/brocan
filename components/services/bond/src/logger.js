@@ -1,9 +1,8 @@
 const pino = require('pino');
-const pretty = pino.pretty();
 
-pretty.pipe(process.stdout)
+const logger = pino({
+  name: 'bond',
+  safe: true,
+});
 
-module.exports = pino({
-  name: 'app',
-  safe: true
-}, pretty);
+module.exports = logger;

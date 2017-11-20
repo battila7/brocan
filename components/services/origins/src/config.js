@@ -21,7 +21,7 @@ const config = convict({
         uri: {
             doc: 'The URI of the WebHook payload Redis instace.',
             format: String,
-            default: 'redis://redis:6379',
+            default: 'redis://origins-redis:6379',
             env: 'REDIS_URI'
         }
     }

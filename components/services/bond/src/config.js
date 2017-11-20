@@ -26,7 +26,7 @@ const config = convict({
         port: {
             doc: 'The port, the build report collector will listen on.',
             format: 'port',
-            default: '3000',
+            default: '4000',
             env: 'COLLECTOR_PORT'
         }
     },

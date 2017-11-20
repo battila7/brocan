@@ -1,18 +1,13 @@
-const { createLogger, format, transports } = require('winston');
-const { combine, timestamp, prettyPrint, printf, splat } = format;
+const config = require('./config');
 
-const customFormat = printf(info => {
-  return `${info.timestamp} ${info.level}: ${info.message}`;
-});
+const pino = require('pino');
 
-const logger = createLogger({
-  format: combine(
-    timestamp(),
-    splat(),
-    customFormat
-  ),
-  level: 'debug',
-  transports: [new transports.Console()]
+const logger = pino({
+  name: 'bolt',
+  safe: true,
+  base: {
+    buildId: config.get('buildId')
+  }
 });
 
 module.exports = logger;

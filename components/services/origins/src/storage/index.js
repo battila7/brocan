@@ -20,8 +20,8 @@ const Storage = {
     store(buildId, payload) {
         return this.client.setAsync(buildId, JSON.stringify(payload), 'NX');
     },
-    retrieve(buildId) {
-        return this.client.getAsync(buildId);
+    retrieve(id) {
+        return this.client.getAsync(id);
     }
 };
 

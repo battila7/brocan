@@ -2,6 +2,11 @@ version: '3'
 
 services:
   # Brocan services
+  bay:
+    build: ../../components/services/bay
+    depends_on:
+      - nats
+      - bay-redis
   bond: 
     build: ../../components/services/bond
     environment:
@@ -10,16 +15,37 @@ services:
       - faktory
       - nats
     ports:
-      - '3000:3000'
+      - '4000:4000'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/brocan:/tmp/brocan
   bouncer: 
-    build: ../../components/services/bouncer/server
+    build: ../../components/services/bouncer
     depends_on:
       - nats
     ports:
       - '8080:8080'
+  build: 
+    build: ../../components/services/build
+    depends_on:
+      - mongo
+      - nats
+  entrance:
+    build: ../../components/services/entrance
+    depends_on:
+      - nats
+    ports:
+      - '8090:8090'
+  eternity: 
+    build: ../../components/services/eternity
+    depends_on:
+      - mongo
+      - nats
+  hound:
+    build: ../../components/services/hound
+    depends_on:
+      - elasticsearch
+      - nats
   identity: 
     build: ../../components/services/identity
     depends_on:
@@ -33,19 +59,46 @@ services:
     build: ../../components/services/origins
     depends_on:
       - nats
-      - redis
+      - origins-redis
+  repository: 
+    build: ../../components/services/repository
+    depends_on:
+      - mongo
+      - nats
   transformer-github:
     build: ../../components/services/transformer/github
     depends_on:
       - nats
 
   # Third-party services
+  elasticsearch:
+    image: elasticsearch:5
+    command: elasticsearch -E network.host=0.0.0.0 -E discovery.zen.minimum_master_nodes=1 
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    links:
+      - kibana
   faktory:
     image: contribsys/faktory
     entrypoint: ./faktory -b 0.0.0.0:7419
     ports:
       - '7419:7419'
       - '7420:7420'
+  grafana:
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
+  kibana:
+    image: kibana
+    ports:
+      - '5601:5601'
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - /data/brocan:/data/db
   nats:
     image: nats
     entrypoint:
@@ -58,10 +111,32 @@ services:
       - '4222:4222'
       - '6222:6222'
       - '8222:8222'
-  redis:
+  prometheus:
+    build: '../../components/utilities/prometheus'
+    ports:
+      - '9090:9090' 
+  prometheus-nats-exporter:
+    build: '../../components/utilities/nats-metrics'
+    entrypoint:
+      - 'prometheus-nats-exporter'
+      - -varz
+      - 'http://nats:8222'
+    ports:
+      - '7777:7777'
+  bay-redis:
     image: redis
     ports:
-      - '6379:6379'
+      - '6400:6379'
+  origins-redis:
+    image: redis
+    ports:
+      - '6401:6379'
+  registry:
+    image: registry
+    ports:
+      - '5000:5000'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
   default:

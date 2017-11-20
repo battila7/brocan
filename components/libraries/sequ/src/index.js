@@ -3,6 +3,9 @@ const Sequ = {
         this.queue = [];
         this.inProgress = false;
     },
+    get length() {
+        return this.queue.length;
+    },
     do(provider) {
         return new Promise((resolve, reject) => {
             const providerWrapper = {
