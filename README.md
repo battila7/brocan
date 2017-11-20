@@ -1,17 +1,21 @@
 # Brocan CI
 
-Brocan (pun intended) is a simple continuous integration system that serves as a fun exercise and a school project.
+Brocan (pun intended) is a feature-wise simple but architecturally a bit more complex continuous integration system that's been developed as a university project. 
 
-## Features/Goals
+Eye-candy web UI, deployments and stuff like that should not be expected from Brocan. The focus was mainly on the introduction of microservices rather than a wide feature set.
 
-The intended features of Brocan are the following:
+## Features
+
+Brocan is capable of
 
   * Producing brocan builds
-    * Builds are triggered upon changes using webhooks
-    * Supported repository providers: GitHub, GitLab, BitBucket
-  * Log-following of running builds.
-  * Custom environment variable passing.
-    * Allows repository owners to pass environment variables to the build context.
+    * Builds are triggered upon changes through webhooks
+    * Supported repository providers: GitHub (others can be added easily)
+  * Serving data regarding the finished and currently executing builds.
+
+## How to run Brocan?
+
+Please refer to the scripts and instructions in the [deployment](deployment) folder for building and running Brocan.
 
 ## Project Structure
 
