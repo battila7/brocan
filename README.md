@@ -22,3 +22,10 @@ Please refer to the scripts and instructions in the [deployment](deployment) fol
   * [components](components) - The components that make up Brocan.
   * [deployment](deployment) - Deployment scripts for various configurations and environments.
   * [docs](docs) - Documentation for processes, architecture and alike.
+
+## The way it works
+
+Please head to the [What happens when...](docs/implementation/what-happens-when.md) article to get a better understanding, how Brocan works.
+
+## The stack
+
