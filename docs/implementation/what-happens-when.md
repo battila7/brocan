@@ -8,15 +8,15 @@ Let's assume that you have set up the appropriate WebHook in GitHub and have pus
 
 The request is handled by [Bouncer](../../components/services/bouncer) that acts as a gateway to the Brocan Build System. Bouncer extracts the headers and payload from the request and sends a new message to the `build.transform` topic. WebHook transformer service can subscribe to this topic and match on the appropriate header or payload fields. In our case, GitHub supplies the `X-GitHub-Event` and `X-GitHub-Delivery` header fields, so [GitHub Transformer](../../components/services/transformer/github) is going to look for these in the message. 
 
-If the pattern matching succeeds, GitHub Transform will create a new Brocan Build Request Format object and send it back to Bouncer. At this moment, the BBRF object does not include the `id` field. Populating that field is the task of [Identity](../../components/services/identity) upon receiving the BBRF through the `build.generateIdentifier` topic.
+If the pattern matching succeeds, GitHub Transformer will create a new Brocan Build Request Format object and send it back to Bouncer. At this moment, the BBRF object does not include the `id` field. Populating that field is the task of [Identity](../../components/services/identity) upon receiving the BBRF through the `build.generateIdentifier` topic.
 
 Once Bouncer has the BBRF with the `id` field set, it can announce the build on the `build.info` topic with the `new` role. The message sent to this topic contains the BBRF as well as the original WebHook request. Currently, there are three services listening for messages on this topic: 
 
   * [Eternity](../../components/services/eternity) saves the BBRF, 
-  * [Origins](../../components/services/origins) stores the WebHook request matched to the build identifier and maybe the key one,
+  * [Origins](../../components/services/origins) stores the WebHook request matched to the build identifier,
   * [Input](../../components/services/input) pushes the build identifier to the build queue (maintained by Faktory).
 
-The first phase of your build is over, and it will sit in the build queue until a build agent can pick it up.
+The first phase of your build is over, and it will sit in the build queue until a build agent is able pick it up.
 
 ## Build Execution
 
@@ -47,4 +47,4 @@ No matter how the build pipeline is over, it's time to execute the clean-up pipe
   1. **Remove Container** - The build container is deleted.
   1. **Release Build** - Some additional clean-up, completely releasing the build.
 
-Yay, we're done! Our build has stopped execution and is over. Build data can be queried using the [Build](../../components/services/build) service, while logs can be droppin [Hound](../../components/services/hound) some messages. Of course, these cannot be done directly, but through the [Entrance](../../components/services/entrance) gateway.
+Yay, we're done! The journey our push has gone through is over. Build data can be queried using the [Build](../../components/services/build) service, while logs can be accessed by dropping [Hound](../../components/services/hound) some messages. Of course, these cannot be done directly, but through the [Entrance](../../components/services/entrance) gateway.
