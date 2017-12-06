@@ -27,6 +27,8 @@ Please refer to the scripts and instructions in the [deployment](deployment) fol
 
 Please head to the [What happens when...](docs/implementation/what-happens-when.md) article to get a better understanding, how Brocan works.
 
+For the fancy stuff, look at the [docs/presentations](docs/presentations) folder.
+
 ## The stack
 
 A friendly enumeration of the techs/components/libraries used by Brocan
