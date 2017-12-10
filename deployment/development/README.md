@@ -1,9 +1,32 @@
 # Deployment > Development
 
-Deployment scripts to spin up various parts of the system. The script name indicates the comprising components. The following configurations are available:
+Deployment scripts to spin up various parts of the system. The script name indicates the comprising components.
 
- * [bond-faktory-nats.yml](bond-faktory-nats.yml) - Starts a single Bond instance along with a Faktory queue and NATS. Can be used to test Bond using BuildInject.
- * [bouncer-nats.yml](bouncer-nats.yml) - Only the Bouncer Gateway and NATS are started. Useful for WebHook testing.
- * [identity-nats.yml](bouncer-nats.yml) - Only Identity and NATS are started. Can be used to test build identifier generation.
- * [origins-redis-nats.yml](origins-redis-nats.yml) - Spins up a Redis server and NATS to ease the testing of Origins.
- 
+## Running Brocan
+
+### Prerequisites
+
+  * `docker` up and running
+  * *nix OS (Windows is not supported)
+  * `dockerd` is using `/var/run/docker.sock`
+  * `/tmp/brocan` folder can be created
+
+### Setup
+
+First build the images using
+
+~~~~bash
+docker-compose -f build-system.yml build
+~~~~
+
+Then create a new bridged docker network named `brocan-development-network`. 
+
+### Start
+
+The whole Brocan Build System can be started using the following command:
+
+~~~~bash
+docker-compose -f build-system.yml up
+~~~~
+
+Once Brocan is running, logs can be accessed in Kibana at `localhost:5601`.
